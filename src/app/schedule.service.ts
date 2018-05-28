@@ -10,7 +10,7 @@ import { IParityWeek } from './models/IParityWeek';
 })
 export class ScheduleService {
 
-  requestUrl : string = "http://eaca.azurewebsites.net/api/schedule";
+  requestUrl : string = "https://eaca.azurewebsites.net/api/schedule";
 
   constructor(private http : HttpClient) { }
 
