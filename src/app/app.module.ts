@@ -21,13 +21,14 @@ import { MatFormFieldModule,
   MatAutocompleteModule,
   MatToolbarModule, 
   MatTooltipModule,
-  MatMenuModule
+  MatMenuModule,
+  MatIconModule,
+  MatDialogModule
 } from '@angular/material';
 
 import { ScheduleService } from './schedule.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from '@angular/common/http';
-
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -58,12 +59,15 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
     MatMenuModule,
+    MatIconModule,
+    MatDialogModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
     ScheduleService,
     CookieService 
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: []
 })
 export class AppModule { }

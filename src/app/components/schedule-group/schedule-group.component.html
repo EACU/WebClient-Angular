@@ -1,61 +1,53 @@
+<form [formGroup] = "scheduleForms">
+  <mat-form-field class="example-full-width">
+    <mat-select placeholder="Выберите группу" formControlName="group">
+      <mat-option *ngFor="let option of groupList" [value]="option.groupId">
+          {{ option.groupId }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-<div class="container">
+  <mat-form-field class="example-full-width">
+    <mat-select placeholder="Выберите чётность недели" formControlName="parityWeek">
+      <mat-option *ngFor="let option of parity" [value]="option.value">
+          {{ option.valueView }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <form [formGroup] = "scheduleForms">
-<!--   
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Группа" formControlName="group" autocomplete="off">
-      </mat-form-field> -->
-
-      <mat-form-field class="example-full-width">
-          <mat-select placeholder="Выберите группу" formControlName="group">
-            <mat-option *ngFor="let option of groupList" [value]="option.groupId">
-                {{ option.groupId }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-select placeholder="Выберите чётность недели" formControlName="parityWeek">
-          <mat-option *ngFor="let option of parity" [value]="option.value">
-              {{ option.valueView }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <button type="submit"
-              mat-raised-button
-              color="primary" 
-              (click) = "loadSchedule()" 
-              [disabled]="!scheduleForms.valid">
-        Загрузить расписание
-      </button>
-        
-    </form>
-  
-    <hr>
-
+  <button type="submit"
+          mat-raised-button
+          color="primary" 
+          (click) = "loadSchedule()" 
+          [disabled]="!scheduleForms.valid">
+    Загрузить расписание
+  </button>
     
-    <div *ngFor="let schedule of schedules">
+</form>
 
-      <table mat-table [dataSource]="schedule" class="mat-elevation-z8">
-        <!-- Колонка номера пары -->
-        <ng-container matColumnDef="time">
-          <th mat-header-cell *matHeaderCellDef>Номер пары</th>
-          <td mat-cell *matCellDef="let e; let i = index"> {{i + 1}} </td>
-        </ng-container>
-        <!-- Колонка пар -->
-        <ng-container matColumnDef="lesson">
-          <th mat-header-cell *matHeaderCellDef>Пара</th>
-          <td mat-cell *matCellDef="let e"> {{e}} </td>
-        </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="['time', 'lesson']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['time', 'lesson'];"></tr>
-      </table>
-      <br>
-      <br>
+<hr>
 
-    </div>
-
+<ng-container *ngIf="schedule; else ScheduleUndefined">
+  <div *ngFor="let dailySchedule of schedule.weekSchedule">
+    <h2 class="mat-h2">{{dailySchedule.day}}</h2>
+    <table mat-table [dataSource]="dailySchedule.lessons" class="mat-elevation-z8">
+      <!-- Колонка номера пары -->
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef>Номер пары</th>
+        <td mat-cell *matCellDef="let e; let i = index"> {{i + 1}} </td>
+      </ng-container>
+      <!-- Колонка пар -->
+      <ng-container matColumnDef="lesson">
+        <th mat-header-cell *matHeaderCellDef>Пара</th>
+        <td mat-cell *matCellDef="let e"> {{e}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['time', 'lesson']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['time', 'lesson'];"></tr>
+    </table>
+    <br><br>
   </div>
+</ng-container>
+
+<ng-template #ScheduleUndefined>
+    <h2 class="mat-h2">Загрузите расписание</h2>
+</ng-template>

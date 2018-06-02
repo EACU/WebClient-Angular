@@ -1,4 +1,8 @@
+import { IDailySchedule } from "./IDailySchedule";
 
 export interface ISchedule {
-    lesson : string;
+    groupId: string;
+    parity: string;
+    dateQuery: string;
+    weekSchedule : IDailySchedule[];
 }

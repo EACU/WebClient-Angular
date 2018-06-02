@@ -1,20 +1,3 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <a class="nav-link" routerLink="">Главная</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/scheduleGroup">На неделю</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/scheduleGroupDay">На день</a>
-      </li>
-    </ul>
-    <span class="navbar-text"  *ngIf="userGroup"> Ваша группа: {{userGroup}} </span>
-  </div>
-</nav> -->
-
 <mat-toolbar color="primary">  
   <mat-toolbar-row>
     <span>Расписание ЕАСИ</span>
@@ -22,10 +5,12 @@
     <button mat-button routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Главная</button>
     <button mat-button routerLink="/scheduleGroup">На неделю</button>
     <button mat-button routerLink="/scheduleGroupDay">На день</button>
-    
+        
     <span class="fill-remaining-space"></span>
 
-    <button mat-button routerLink="/scheduleGroup">Текущая неделя: {{currentWeek?.statusParity.split(" ")[0]}}</button> <!-- TODO: роутер на расписание чёт\нечёт недели -->
+    <button mat-button matTooltip="{{currentWeek?.startWeek}} - {{currentWeek?.endWeek}}">
+      Текущая неделя: {{currentWeek?.statusParity.split(" ")[0]}}
+    </button>
 
     <div *ngIf="userGroup">
 

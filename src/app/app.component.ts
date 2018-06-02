@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 
 import { CookieService } from 'ngx-cookie-service';
 import { ScheduleService } from './schedule.service';
-import { IParityWeek } from './models/IParityWeek';
+import { ICurrentWeek } from './models/ICurrentWeek';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +14,15 @@ import { IParityWeek } from './models/IParityWeek';
 export class AppComponent implements OnInit {
 
   userGroup : string;
-  currentWeek : IParityWeek;
+  currentWeek : ICurrentWeek;
 
   constructor(private cookieService: CookieService, private scheduleService: ScheduleService) { } 
 
   ngOnInit(): void {
     this.userGroup = this.cookieService.get("ScheduleEACA_Group");
-    this.scheduleService.getEvenOddWeekToday().subscribe(response => this.currentWeek = response);
+    this.scheduleService.getCurrentWeek().subscribe( response => {
+      this.currentWeek = response;
+    })
   }
+
 }

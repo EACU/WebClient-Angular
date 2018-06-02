@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { ISchedule } from './models/ISchedule';
 import { IGroup } from './models/IGroup';
-import { IParityWeek } from './models/IParityWeek';
+import { ICurrentWeek } from './models/ICurrentWeek';
+import { IDailySchedule } from './models/IDailySchedule';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +12,21 @@ import { IParityWeek } from './models/IParityWeek';
 export class ScheduleService {
 
   requestUrl : string = "https://eaca.azurewebsites.net/api/schedule";
-
+  
   constructor(private http : HttpClient) { }
 
+  getCurrentWeek() {
+    return this.http.get<ICurrentWeek>(`${this.requestUrl}/getParityToday`)
+  }
+
   getWeekScheduleGroup(parity, groupId) {
-    return this.http.get<ISchedule[]>(`${this.requestUrl}/${parity}/${groupId}`)
+    return this.http.get<ISchedule>(`${this.requestUrl}/${parity}/${groupId}`)
   }
 
   getDayScheduleGroup(parity, groupId, day) {
-    return this.http.get<ISchedule>(`${this.requestUrl}/${parity}/${groupId}/${day}`);
+    return this.http.get<IDailySchedule>(`${this.requestUrl}/${parity}/${groupId}/${day}`);
   }
-
-  getEvenOddWeekToday() {
-    return this.http.get<IParityWeek>(`${this.requestUrl}/getEvenOddToday`);
-  }
-
+  
   getListGroup() {
     return this.http.get<IGroup[]>(`${this.requestUrl}/getGroupList`);
   }
