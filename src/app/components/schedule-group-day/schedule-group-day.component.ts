@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
 
 import { ScheduleService } from '../../schedule.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -30,14 +29,14 @@ export class ScheduleGroupDayComponent implements OnInit {
     { value: 'odd', valueView: 'Нечётная' }
   ];
 
-  schedule : IDailySchedule;
-  groupList : IGroup[];
+  schedule: IDailySchedule;
+  groupList: IGroup[];
   currentWeek: ICurrentWeek;
 
-  scheduleForms : FormGroup;
+  scheduleForms: FormGroup;
 
   constructor(
-    private scheduleService : ScheduleService,
+    private scheduleService: ScheduleService,
     private cookieService: CookieService,
     private formbuilder: FormBuilder) {
 
@@ -50,15 +49,15 @@ export class ScheduleGroupDayComponent implements OnInit {
   }
 
   initGroupWeek() {
-    this.scheduleService.getListGroup().subscribe(response => this.groupList = response)
+    this.scheduleService.getListGroup().subscribe(response => this.groupList = response);
     this.scheduleService.getCurrentWeek().subscribe(response => {
       this.currentWeek = response;
-      this.scheduleForms.controls['parityWeek'].setValue(this.currentWeek.statusParity.split(" ")[0] == 'Чётная' ? 'even' : 'odd' );
-    })
+      this.scheduleForms.controls['parityWeek'].setValue(this.currentWeek.statusParity.split(' ')[0] === 'Чётная' ? 'even' : 'odd' );
+    });
   }
 
   initForm() {
-    let currentDay = new Date().getDay() == 0 ? '0' : (new Date().getDay() - 1).toString(); // Если сегодня воскресение, то показываем за понедельник
+    const currentDay = new Date().getDay() === 0 ? '0' : (new Date().getDay() - 1).toString();
     this.scheduleForms = this.formbuilder.group({
       group: [+this.cookieService.get('ScheduleEACA_Group'), [Validators.required]],
       day: [currentDay],
@@ -72,11 +71,11 @@ export class ScheduleGroupDayComponent implements OnInit {
         this.schedule = response;
         console.log(this.schedule);
       });
-    this.cookieService.set("ScheduleEACA_Group", this.getFormValue('group'));
+    this.cookieService.set('ScheduleEACA_Group', this.getFormValue('group'));
   }
 
   getFormValue(control: string) {
-    return this.scheduleForms.controls[control].value
+    return this.scheduleForms.controls[control].value;
   }
 
 }

@@ -1,6 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { TestData } from '../../models/TestData';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-home',

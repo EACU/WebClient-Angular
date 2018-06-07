@@ -1,6 +1,6 @@
 
 export interface IGroup {
-    groupId : number;
-    cells : string;
-    worksheet : string
+    groupId: number;
+    cells: string;
+    worksheet: string;
 }

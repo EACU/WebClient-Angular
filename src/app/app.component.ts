@@ -13,16 +13,16 @@ import { ICurrentWeek } from './models/ICurrentWeek';
 
 export class AppComponent implements OnInit {
 
-  userGroup : string;
-  currentWeek : ICurrentWeek;
+  userGroup: string;
+  currentWeek: ICurrentWeek;
 
-  constructor(private cookieService: CookieService, private scheduleService: ScheduleService) { } 
+  constructor(private cookieService: CookieService, private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
-    this.userGroup = this.cookieService.get("ScheduleEACA_Group");
+    this.userGroup = this.cookieService.get('ScheduleEACA_Group');
     this.scheduleService.getCurrentWeek().subscribe( response => {
       this.currentWeek = response;
-    })
+    });
   }
 
 }

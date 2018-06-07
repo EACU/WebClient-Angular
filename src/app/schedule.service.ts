@@ -11,22 +11,22 @@ import { IDailySchedule } from './models/IDailySchedule';
 })
 export class ScheduleService {
 
-  requestUrl : string = "https://eaca.azurewebsites.net/api/schedule";
-  
-  constructor(private http : HttpClient) { }
+  requestUrl = 'https://eaca.azurewebsites.net/api/schedule';
+
+  constructor(private http: HttpClient) { }
 
   getCurrentWeek() {
-    return this.http.get<ICurrentWeek>(`${this.requestUrl}/getParityToday`)
+    return this.http.get<ICurrentWeek>(`${this.requestUrl}/getParityToday`);
   }
 
   getWeekScheduleGroup(parity, groupId) {
-    return this.http.get<ISchedule>(`${this.requestUrl}/${parity}/${groupId}`)
+    return this.http.get<ISchedule>(`${this.requestUrl}/${parity}/${groupId}`);
   }
 
   getDayScheduleGroup(parity, groupId, day) {
     return this.http.get<IDailySchedule>(`${this.requestUrl}/${parity}/${groupId}/${day}`);
   }
-  
+
   getListGroup() {
     return this.http.get<IGroup[]>(`${this.requestUrl}/getGroupList`);
   }

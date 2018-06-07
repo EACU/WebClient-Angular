@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -16,10 +15,10 @@ import { MatFormFieldModule,
   MatInputModule,
   MatRippleModule,
   MatButtonModule,
-  MatSelectModule, 
-  MatTableModule, 
+  MatSelectModule,
+  MatTableModule,
   MatAutocompleteModule,
-  MatToolbarModule, 
+  MatToolbarModule,
   MatTooltipModule,
   MatMenuModule,
   MatIconModule,
@@ -65,7 +64,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     ScheduleService,
-    CookieService 
+    CookieService
   ],
   bootstrap: [AppComponent],
   entryComponents: []

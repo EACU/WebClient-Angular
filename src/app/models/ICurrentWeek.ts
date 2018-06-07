@@ -1,5 +1,5 @@
 export interface ICurrentWeek {
-    startWeek : string;
-    endWeek : string;
-    statusParity : string;
+    startWeek: string;
+    endWeek: string;
+    statusParity: string;
 }

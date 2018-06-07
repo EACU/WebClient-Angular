@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ScheduleService } from '../../schedule.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -6,7 +6,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ISchedule } from '../../models/ISchedule';
 import { IGroup } from '../../models/IGroup';
-import { Observable } from 'rxjs';
 import { ICurrentWeek } from '../../models/ICurrentWeek';
 
 @Component({
@@ -17,21 +16,21 @@ import { ICurrentWeek } from '../../models/ICurrentWeek';
 
 export class ScheduleGroupComponent implements OnInit {
 
-  scheduleForms : FormGroup;
+  scheduleForms: FormGroup;
 
-  schedule : ISchedule;
-  groupList : IGroup[];
+  schedule: ISchedule;
+  groupList: IGroup[];
   currentWeek: ICurrentWeek;
 
   week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
-  
+
   parity = [
     { value: 'even', valueView: 'Чётная' },
     { value: 'odd', valueView: 'Нечётная' }
   ];
 
   constructor(
-    private scheduleService : ScheduleService,
+    private scheduleService: ScheduleService,
     private cookieService: CookieService,
     private formbuilder: FormBuilder) {
 
@@ -51,21 +50,21 @@ export class ScheduleGroupComponent implements OnInit {
   }
 
   initGroupWeek() {
-    this.scheduleService.getListGroup().subscribe(response => this.groupList = response)
+    this.scheduleService.getListGroup().subscribe(response => this.groupList = response);
     this.scheduleService.getCurrentWeek().subscribe(response => {
       this.currentWeek = response;
-      this.scheduleForms.controls['parityWeek'].setValue(this.currentWeek.statusParity.split(" ")[0] == 'Чётная' ? 'even' : 'odd' );
-    })
+      this.scheduleForms.controls['parityWeek'].setValue(this.currentWeek.statusParity.split(' ')[0] === 'Чётная' ? 'even' : 'odd' );
+    });
   }
 
   loadSchedule() {
     this.scheduleService.getWeekScheduleGroup(this.getFormValue('parityWeek'), this.getFormValue('group'))
       .subscribe(response => this.schedule = response);
 
-    this.cookieService.set("ScheduleEACA_Group", this.getFormValue('group'));
+    this.cookieService.set('ScheduleEACA_Group', this.getFormValue('group'));
   }
 
   getFormValue(control: string) {
-    return this.scheduleForms.controls[control].value
+    return this.scheduleForms.controls[control].value;
   }
 }
