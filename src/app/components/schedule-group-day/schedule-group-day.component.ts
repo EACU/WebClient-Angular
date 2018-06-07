@@ -5,8 +5,6 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { IDailySchedule } from '../../models/IDailySchedule';
-import { IGroup } from '../../models/IGroup';
-import { ICurrentWeek } from '../../models/ICurrentWeek';
 
 @Component({
   selector: 'app-schedule-group-day',
@@ -14,6 +12,10 @@ import { ICurrentWeek } from '../../models/ICurrentWeek';
   styleUrls: ['./schedule-group-day.component.css']
 })
 export class ScheduleGroupDayComponent implements OnInit {
+
+  isScheduleLoaded = false;
+  schedule: IDailySchedule;
+  scheduleForms: FormGroup;
 
   options = [
     { id: '0', day: 'Понедельник' },
@@ -29,12 +31,6 @@ export class ScheduleGroupDayComponent implements OnInit {
     { value: 'odd', valueView: 'Нечётная' }
   ];
 
-  schedule: IDailySchedule;
-  groupList: IGroup[];
-  currentWeek: ICurrentWeek;
-
-  scheduleForms: FormGroup;
-
   constructor(
     private scheduleService: ScheduleService,
     private cookieService: CookieService,
@@ -44,37 +40,40 @@ export class ScheduleGroupDayComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.initGroupWeek();
     this.initForm();
-  }
-
-  initGroupWeek() {
-    this.scheduleService.getListGroup().subscribe(response => this.groupList = response);
-    this.scheduleService.getCurrentWeek().subscribe(response => {
-      this.currentWeek = response;
-      this.scheduleForms.controls['parityWeek'].setValue(this.currentWeek.statusParity.split(' ')[0] === 'Чётная' ? 'even' : 'odd' );
-    });
+    this.initSchedule();
   }
 
   initForm() {
     const currentDay = new Date().getDay() === 0 ? '0' : (new Date().getDay() - 1).toString();
     this.scheduleForms = this.formbuilder.group({
-      group: [+this.cookieService.get('ScheduleEACA_Group'), [Validators.required]],
+      group: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
       day: [currentDay],
       parityWeek: [null]
     });
   }
 
+  initSchedule() {
+    this.scheduleForms.controls['group'].setValue(this.cookieService.get('ScheduleEACA_Group'));
+    this.scheduleService.getCurrentWeek().subscribe(response => {
+      this.scheduleForms.controls['parityWeek'].setValue(response.statusParity);
+      if (this.scheduleForms.valid) {
+        this.loadSchedule();
+      }
+    });
+  }
+
   loadSchedule() {
+    this.isScheduleLoaded = false;
     this.scheduleService.getDayScheduleGroup(this.getFormValue('parityWeek'), this.getFormValue('group'), this.getFormValue('day'))
       .subscribe(response => {
         this.schedule = response;
-        console.log(this.schedule);
+        this.isScheduleLoaded = true;
       });
     this.cookieService.set('ScheduleEACA_Group', this.getFormValue('group'));
   }
 
-  getFormValue(control: string) {
+  private getFormValue(control: string) {
     return this.scheduleForms.controls[control].value;
   }
 

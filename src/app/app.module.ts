@@ -22,12 +22,14 @@ import { MatFormFieldModule,
   MatTooltipModule,
   MatMenuModule,
   MatIconModule,
-  MatDialogModule
+  MatDialogModule, MatSidenavModule, MatListModule, MatRadioModule, MatProgressBarModule, MatBadgeModule
 } from '@angular/material';
 
 import { ScheduleService } from './schedule.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutModule } from '@angular/cdk/layout';
+import { ScheduleToolbarComponent } from './components/schedule-toolbar/schedule-toolbar.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     ScheduleGroupComponent,
-    ScheduleGroupDayComponent
+    ScheduleGroupDayComponent,
+    ScheduleToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,13 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatIconModule,
     MatDialogModule,
-    RouterModule.forRoot(appRoutes)
+    MatRadioModule,
+    MatProgressBarModule,
+    MatBadgeModule,
+    RouterModule.forRoot(appRoutes),
+    LayoutModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [
     ScheduleService,

@@ -5,8 +5,6 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ISchedule } from '../../models/ISchedule';
-import { IGroup } from '../../models/IGroup';
-import { ICurrentWeek } from '../../models/ICurrentWeek';
 
 @Component({
   selector: 'app-schedule-group',
@@ -16,13 +14,9 @@ import { ICurrentWeek } from '../../models/ICurrentWeek';
 
 export class ScheduleGroupComponent implements OnInit {
 
-  scheduleForms: FormGroup;
-
+  isScheduleLoaded = false;
   schedule: ISchedule;
-  groupList: IGroup[];
-  currentWeek: ICurrentWeek;
-
-  week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+  scheduleForms: FormGroup;
 
   parity = [
     { value: 'even', valueView: 'Чётная' },
@@ -38,29 +32,34 @@ export class ScheduleGroupComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.initGroupWeek();
     this.initForm();
+    this.initSchedule();
   }
 
   initForm() {
     this.scheduleForms = this.formbuilder.group({
-      group: [+this.cookieService.get('ScheduleEACA_Group'), [Validators.required]],
+      group: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
       parityWeek: [null]
     });
   }
 
-  initGroupWeek() {
-    this.scheduleService.getListGroup().subscribe(response => this.groupList = response);
+  initSchedule() {
+    this.scheduleForms.controls['group'].setValue(this.cookieService.get('ScheduleEACA_Group'));
     this.scheduleService.getCurrentWeek().subscribe(response => {
-      this.currentWeek = response;
-      this.scheduleForms.controls['parityWeek'].setValue(this.currentWeek.statusParity.split(' ')[0] === 'Чётная' ? 'even' : 'odd' );
+      this.scheduleForms.controls['parityWeek'].setValue(response.statusParity);
+      if (this.scheduleForms.valid) {
+        this.loadSchedule();
+      }
     });
   }
 
   loadSchedule() {
+    this.isScheduleLoaded = false;
     this.scheduleService.getWeekScheduleGroup(this.getFormValue('parityWeek'), this.getFormValue('group'))
-      .subscribe(response => this.schedule = response);
-
+      .subscribe(response => {
+        this.schedule = response;
+        this.isScheduleLoaded = true;
+      });
     this.cookieService.set('ScheduleEACA_Group', this.getFormValue('group'));
   }
 

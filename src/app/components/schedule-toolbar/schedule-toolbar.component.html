@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">  
+  <mat-toolbar-row>
+    <span>Расписание ЕАСИ</span>
+
+    <button mat-button routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Главная</button>
+    <button mat-button routerLink="/scheduleGroup">На неделю</button>
+    <button mat-button routerLink="/scheduleGroupDay">На день</button>
+
+    <span class="fill-remaining-space"></span>
+
+    <button mat-button matTooltip="{{currentWeek?.startWeek}} - {{currentWeek?.endWeek}}">
+      Текущая неделя: {{currentWeek?.statusParityRus}}
+    </button>
+
+    <div *ngIf="userGroup">
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item routerLink="/scheduleGroupDay">Расписание на сегодня</button>
+        <button mat-menu-item (click)='resetCookieGroup()'>Сбросить группу</button>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="appMenu" matTooltip="Функции">Ваша группа: {{userGroup}}</button>
+    </div>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+

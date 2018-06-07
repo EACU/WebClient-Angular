@@ -1,19 +1,16 @@
 <form [formGroup] = "scheduleForms">
-  <mat-form-field class="example-full-width">
-    <mat-select placeholder="Выберите группу" formControlName="group">
-      <mat-option *ngFor="let option of groupList" [value]="option.groupId">
-          {{ option.groupId }}
-      </mat-option>
-    </mat-select>
+
+  <mat-form-field class="full-width">
+    <mat-label>Номер группы</mat-label>
+    <input matInput placeholder="Номер группы состоит из 3-х цифр. Например: 121" formControlName="group" required>
+    <mat-hint></mat-hint>
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <mat-select placeholder="Выберите чётность недели" formControlName="parityWeek">
-      <mat-option *ngFor="let option of parity" [value]="option.value">
-          {{ option.valueView }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <mat-radio-group class="full-width radio-group" formControlName="parityWeek">
+    <mat-radio-button class="radio-button" *ngFor="let e of parity" [value]="e.value">
+      {{e.valueView}}
+    </mat-radio-button>
+  </mat-radio-group>
 
   <button type="submit"
           mat-raised-button
@@ -27,7 +24,9 @@
 
 <hr>
 
-<ng-container *ngIf="schedule; else ScheduleUndefined">
+<mat-progress-bar *ngIf="!isScheduleLoaded && schedule" mode="indeterminate"></mat-progress-bar>
+
+<ng-container *ngIf="isScheduleLoaded && schedule; else ScheduleUndefined">
   <div *ngFor="let dailySchedule of schedule.weekSchedule">
     <h2 class="mat-h2">{{dailySchedule.day}}</h2>
     <table mat-table [dataSource]="dailySchedule.lessons" class="mat-elevation-z8">

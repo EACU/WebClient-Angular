@@ -11,7 +11,10 @@ import { IDailySchedule } from './models/IDailySchedule';
 })
 export class ScheduleService {
 
-  requestUrl = 'https://eaca.azurewebsites.net/api/schedule';
+  // requestUrl = 'https://eaca.azurewebsites.net/api/schedule';
+  requestUrl = 'http://localhost:52569/api/schedule';
+
+  currentWeek: ICurrentWeek;
 
   constructor(private http: HttpClient) { }
 
