@@ -2,9 +2,6 @@
   width: 100%;
 }
 
-table {
-  width: 100%;
-}
 .radio-group {
   display: inline-flex;
   flex-direction: column;
@@ -12,4 +9,22 @@ table {
 
 .radio-button {
   margin: 5px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-number {
+  text-align: center;
+  max-width: 8px;
+}
+
+.mat-column-time {
+  text-align: center;
+  max-width: 32px;
+}
+
+.mat-column-lessonName {
+  max-width: 128px;
 }

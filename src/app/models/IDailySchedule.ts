@@ -1,4 +1,9 @@
 export interface IDailySchedule {
     day: string;
-    lessons: string[];
+    lessons: ILesson[];
+}
+
+interface ILesson {
+    time: string;
+    lessonName: string;
 }
