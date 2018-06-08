@@ -6,6 +6,16 @@
     <button mat-button routerLink="/scheduleGroup">На неделю</button>
     <button mat-button routerLink="/scheduleGroupDay">На день</button>
 
+    <div *ngIf="status">
+      <button mat-button (click)="logout()">Logoff</button>
+    </div>
+
+    <div *ngIf="!status">
+      <button mat-button routerLink="/register">Sign up</button>
+      <button mat-button routerLink="/login">Sign in</button>
+    </div>
+
+
     <span class="fill-remaining-space"></span>
 
     <button mat-button matTooltip="{{currentWeek?.startWeek}} - {{currentWeek?.endWeek}}">

@@ -3,13 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { ScheduleGroupComponent } from './components/schedule-group/schedule-group.component';
-import { ScheduleGroupDayComponent } from './components/schedule-group-day/schedule-group-day.component';
+import { HomeComponent } from './home/home.component';
+import { ScheduleGroupComponent } from './schedule-group/schedule-group.component';
+import { ScheduleGroupDayComponent } from './schedule-group-day/schedule-group-day.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
-import {Routes, RouterModule} from '@angular/router';
 
 import { MatFormFieldModule,
   MatInputModule,
@@ -29,13 +27,9 @@ import { ScheduleService } from './schedule.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-import { ScheduleToolbarComponent } from './components/schedule-toolbar/schedule-toolbar.component';
-
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
-  { path: 'scheduleGroup', component: ScheduleGroupComponent},
-  { path: 'scheduleGroupDay', component: ScheduleGroupDayComponent}
-];
+import { ScheduleToolbarComponent } from './schedule-toolbar/schedule-toolbar.component';
+import { AccountModule } from './account/account.module';
+import { routing } from './app.routing';
 
 @NgModule({
   declarations: [
@@ -46,6 +40,7 @@ const appRoutes: Routes = [
     ScheduleToolbarComponent
   ],
   imports: [
+    AccountModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -66,10 +61,10 @@ const appRoutes: Routes = [
     MatRadioModule,
     MatProgressBarModule,
     MatBadgeModule,
-    RouterModule.forRoot(appRoutes),
-    LayoutModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    routing,
+    LayoutModule
   ],
   providers: [
     ScheduleService,

@@ -1,30 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ScheduleService } from '../../schedule.service';
+import { ScheduleService } from '../schedule.service';
 import { CookieService } from 'ngx-cookie-service';
 
-import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
-import { IDailySchedule } from '../../models/IDailySchedule';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ISchedule } from '../models/ISchedule';
 
 @Component({
-  selector: 'app-schedule-group-day',
-  templateUrl: './schedule-group-day.component.html',
-  styleUrls: ['./schedule-group-day.component.css']
+  selector: 'app-schedule-group',
+  templateUrl: './schedule-group.component.html',
+  styleUrls: ['./schedule-group.component.css']
 })
-export class ScheduleGroupDayComponent implements OnInit {
+
+export class ScheduleGroupComponent implements OnInit {
 
   isScheduleLoaded = false;
-  schedule: IDailySchedule;
+  schedule: ISchedule;
   scheduleForms: FormGroup;
-
-  options = [
-    { id: '0', day: 'Понедельник' },
-    { id: '1', day: 'Вторник' },
-    { id: '2', day: 'Среда' },
-    { id: '3', day: 'Четверг' },
-    { id: '4', day: 'Пятница' },
-    { id: '5', day: 'Суббота' }
-  ];
 
   parity = [
     { value: 'even', valueView: 'Чётная' },
@@ -45,10 +37,8 @@ export class ScheduleGroupDayComponent implements OnInit {
   }
 
   initForm() {
-    const currentDay = new Date().getDay() === 0 ? '0' : (new Date().getDay() - 1).toString();
     this.scheduleForms = this.formbuilder.group({
       group: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
-      day: [currentDay],
       parityWeek: [null]
     });
   }
@@ -65,7 +55,7 @@ export class ScheduleGroupDayComponent implements OnInit {
 
   loadSchedule() {
     this.isScheduleLoaded = false;
-    this.scheduleService.getDayScheduleGroup(this.getFormValue('parityWeek'), this.getFormValue('group'), this.getFormValue('day'))
+    this.scheduleService.getWeekScheduleGroup(this.getFormValue('parityWeek'), this.getFormValue('group'))
       .subscribe(response => {
         this.schedule = response;
         this.isScheduleLoaded = true;
@@ -73,8 +63,7 @@ export class ScheduleGroupDayComponent implements OnInit {
     this.cookieService.set('ScheduleEACA_Group', this.getFormValue('group'));
   }
 
-  private getFormValue(control: string) {
+  getFormValue(control: string) {
     return this.scheduleForms.controls[control].value;
   }
-
 }
