@@ -26,8 +26,8 @@ export class UserService extends BaseService {
         this.baseUrl = this.configService.getApiURI();
     }
 
-    register(email: string, password: string, firstName: string, lastName: string, location: string): Observable<UserRegistration> {
-        const body = JSON.stringify({ email, password, firstName, lastName, location });
+    register(email: string, password: string, firstName: string, lastName: string): Observable<UserRegistration> {
+        const body = JSON.stringify({ email, password, firstName, lastName });
         const httpOptions = {headers: new HttpHeaders({ 'Content-Type':  'application/json' })};
 
         return this.http.post<UserRegistration>(this.baseUrl + '/accounts', body, httpOptions).pipe(catchError(e => this.handleError(e)));
