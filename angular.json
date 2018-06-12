@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Schedule": {
+    "eacaapplication": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Schedule:build"
+            "browserTarget": "eacaapplication:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Schedule:build:production"
+              "browserTarget": "eacaapplication:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Schedule:build"
+            "browserTarget": "eacaapplication:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "Schedule-e2e": {
+    "eacaapplication-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,7 +103,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Schedule:serve"
+            "devServerTarget": "eacaapplication:serve"
           }
         },
         "lint": {
@@ -118,5 +118,5 @@
       }
     }
   },
-  "defaultProject": "Schedule"
+  "defaultProject": "eacaapplication"
 }

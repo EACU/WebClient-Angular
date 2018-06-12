@@ -1,34 +1,42 @@
-<div class="row">
-  <div class="col-md-6 new-user-alert">
-      <div *ngIf="brandNew" class="alert alert-success" role="alert">
-        <strong>All set!</strong> Please login with your account
-      </div>  
-      <h2>Login</h2>        
-  </div>
-</div>
+<mat-card *ngIf="brandNew">
+  <div  class="alert alert-success" role="alert">
+    <strong>Готово!</strong> {{registrationSucceeded}}
+  </div>  
+</mat-card>
 
-<div class="row">
-  <div class="col-md-6">
-    <form #f="ngForm" novalidate (ngSubmit)="login(f)">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" type="text" required name="email" class="form-control" placeholder="Email" [ngModel]="credentials.email" #email="ngModel" tmFocus validateEmail>
-        <small [hidden]="email.valid || (email.pristine && !submitted)" class="text-danger">Please enter a valid email</small>
-      </div>
+<form #f="ngForm" autocomplete="off" novalidate (ngSubmit)="login(f)">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Вход</mat-card-title>
+      <mat-card-subtitle>Введите свои реквизиты</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" required name="password" placeholder="Password" ngModel>
-      </div>          
+        <mat-form-field class="full-width">
+          <mat-label>Почта</mat-label>
+          <input matInput placeholder="Введите почту" id="email" name="email" validateEmail required ngModel #email="ngModel">
+          <mat-error [hidden]="email.valid || (email.pristine && !submitted)">Введите корректную почту</mat-error>
+        </mat-form-field>
 
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary" [disabled]="f.invalid || isRequesting">Login</button>
-        <app-spinner [isRunning]="isRequesting"></app-spinner> 
-      </div>
+        <mat-form-field class="full-width">
+          <mat-label>Пароль</mat-label>
+          <input matInput type="password" placeholder="Введите пароль, пароль должен быть больше 6 символов" id="password" name="password" required ngModel>
+        </mat-form-field>
 
-      <div *ngIf="errors" class="alert alert-danger" role="alert">
-        <strong>Oops!</strong> {{errors}}
-      </div> 
-    </form>
-  </div>
-</div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button type="submit" class="btn btn-primary" [disabled]="f.invalid || isRequesting">Войти</button>
+      <app-spinner [isRunning]="isRequesting"></app-spinner> 
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<mat-card *ngIf="errors">
+  <p>Ошибки на стороне сервера:</p>
+  <div class="alert alert-danger" role="alert">
+    <div *ngFor="let error of errors">
+      {{error}}
+    </div>
+  </div>    
+</mat-card>
+  

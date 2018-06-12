@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ICurrentWeek } from '../models/ICurrentWeek';
 import { CookieService } from 'ngx-cookie-service';
-import { ScheduleService } from '../schedule.service';
+import { ScheduleService } from '../services/schedule.service';
 import { Subscription } from 'rxjs';
-import { UserService } from '../../shared/services/user.service';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
-  selector: 'app-schedule-toolbar',
-  templateUrl: './schedule-toolbar.component.html',
-  styleUrls: ['./schedule-toolbar.component.css']
+  selector: 'app-toolbar',
+  templateUrl: './toolbar.component.html',
+  styleUrls: ['./toolbar.component.css']
 })
-export class ScheduleToolbarComponent implements OnInit, OnDestroy  {
+export class ToolbarComponent implements OnInit, OnDestroy  {
 
   userGroup: string;
   currentWeek: ICurrentWeek;

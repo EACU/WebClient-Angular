@@ -12,7 +12,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class RegistrationFormComponent implements OnInit {
 
-  errors: string;
+  errors: string[];
   isRequesting: boolean;
   submitted = false;
 
@@ -24,15 +24,15 @@ export class RegistrationFormComponent implements OnInit {
   registerUser({ value, valid }: { value: UserRegistration, valid: boolean }) {
     this.submitted = true;
     this.isRequesting = true;
-    this.errors = '';
     if (valid) {
-      this.userService.register(value.email, value.password, value.firstName, value.lastName)
+      this.userService.register(value.email, value.password, value.firstName, value.lastName, value.group)
         .pipe(finalize(() => this.isRequesting = false))
         .subscribe(result => {
             if (result) {
-              this.router.navigate(['/login'], {queryParams: {brandNew: true, email: value.email}});
+              this.router.navigate(['/authentication/login'], {queryParams: {brandNew: true, email: value.email, result: result}});
             }},
-          errors =>  this.errors = errors);
+          errors => this.errors = errors
+        );
     }
  }
 }

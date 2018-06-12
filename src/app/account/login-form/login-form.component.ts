@@ -15,6 +15,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
+  registrationSucceeded: string;
   brandNew: boolean;
   errors: string;
   isRequesting: boolean;
@@ -28,6 +29,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       (param: any) => {
         this.brandNew = param['brandNew'];
         this.credentials.email = param['email'];
+        this.registrationSucceeded = param['result'];
       }
     );
   }
@@ -46,13 +48,12 @@ export class LoginFormComponent implements OnInit, OnDestroy {
         .subscribe(
           result => {
             if (result) {
-              this.router.navigate(['/home']);
+              this.router.navigate(['/']);
             }
           },
-          error => {
-            this.errors = error;
-          }
+          error => this.errors = error
         );
     }
   }
+
 }

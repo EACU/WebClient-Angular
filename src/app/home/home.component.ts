@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +7,7 @@ import { MatDialog } from '@angular/material';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor() { }
 
   ngOnInit() {
 

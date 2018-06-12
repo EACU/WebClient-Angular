@@ -5,7 +5,7 @@ import { UserRegistration } from '../models/user.registration.interface';
 import { ConfigService } from '../utils/config.service';
 
 import {BaseService} from './base.service';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { map, catchError } from 'rxjs/operators';
 
@@ -26,11 +26,11 @@ export class UserService extends BaseService {
         this.baseUrl = this.configService.getApiURI();
     }
 
-    register(email: string, password: string, firstName: string, lastName: string): Observable<UserRegistration> {
-        const body = JSON.stringify({ email, password, firstName, lastName });
+    register(email: string, password: string, firstName: string, lastName: string, group: string): Observable<UserRegistration> {
+        const body = JSON.stringify({ email, password, firstName, lastName, group});
         const httpOptions = {headers: new HttpHeaders({ 'Content-Type':  'application/json' })};
 
-        return this.http.post<UserRegistration>(this.baseUrl + '/accounts', body, httpOptions).pipe(catchError(e => this.handleError(e)));
+        return this.http.post<UserRegistration>(this.baseUrl + '/accounts', body, httpOptions).pipe(catchError(this.handleError));
     }
 
     login(userName, password) {

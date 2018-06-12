@@ -1,28 +1,24 @@
 import { throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 export abstract class BaseService {
 
     constructor() { }
 
-    protected handleError(error: any) {
-
-      const applicationError = error.headers.get('Application-Error');
-
-      if (applicationError) {
-        return throwError(applicationError);
-      }
-
-      let modelStateErrors = '';
-
-      if (!error.type) {
-        // tslint:disable-next-line:forin
+    protected handleError(error: HttpErrorResponse) {
+      if (error.error instanceof ErrorEvent) {
+        // client error
+      } else {
+        // backend error
+        const modelStateErrors: string[] = [];
         for (const key in error.error) {
-          modelStateErrors += key + ': ' + error.error[key] + '\n';
+          if (error.error[key]) {
+            modelStateErrors.push(error.error[key]);
+          }
         }
+        return throwError(modelStateErrors);
       }
-
-      modelStateErrors = modelStateErrors = '' ? null : modelStateErrors;
-      return throwError(modelStateErrors || 'Server error');
+      return throwError('Произошло что-то плохое; Пожалуйста, повторите попытку позже.');
   }
 }

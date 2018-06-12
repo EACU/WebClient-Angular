@@ -12,18 +12,28 @@ import { SharedModule } from '../../shared/modules/shared.module';
 
 import { EmailValidatorDirective } from '../directive/email.validator.directive';
 import { ConfigService } from '../../shared/utils/config.service';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { RootComponent } from './root/root.component';
+import { MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     routing,
-    SharedModule
+    SharedModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   declarations: [
     RegistrationFormComponent,
     EmailValidatorDirective,
-    LoginFormComponent
+    LoginFormComponent,
+    ToolbarComponent,
+    RootComponent,
   ],
   providers: [ UserService, ConfigService ]
 })
