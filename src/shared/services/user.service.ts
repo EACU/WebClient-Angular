@@ -30,11 +30,11 @@ export class UserService extends BaseService {
         const body = JSON.stringify({ email, password, firstName, lastName, group});
         const httpOptions = {headers: new HttpHeaders({ 'Content-Type':  'application/json' })};
 
-        return this.http.post<UserRegistration>(this.baseUrl + '/accounts', body, httpOptions).pipe(catchError(this.handleError));
+        return this.http.post<UserRegistration>(this.baseUrl + '/accounts/register', body, httpOptions).pipe(catchError(this.handleError));
     }
 
     login(userName, password) {
-        return this.http.post<{id, auth_token, expires_in, error}>(this.baseUrl + '/auth/login', { userName, password }).pipe(
+        return this.http.post<{id, auth_token, expires_in, error}>(this.baseUrl + '/accounts/login', { userName, password }).pipe(
             map(res => {
                 localStorage.setItem('auth_token', res.auth_token);
                 this.loggedIn = true;
