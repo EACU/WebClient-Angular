@@ -23,6 +23,6 @@ export class DashboardService extends BaseService {
   getHomeDetails() {
     const authToken = localStorage.getItem('auth_token');
     const httpOptions = {headers: new HttpHeaders({ 'Authorization':  `Bearer ${authToken}` })};
-    return this.http.get<HomeDetails>(this.baseUrl + '/dashboard/home', httpOptions).pipe(catchError(this.handleError));
+    return this.http.get<HomeDetails>(this.baseUrl + '/dashboard', httpOptions).pipe(catchError(this.handleError));
   }
 }

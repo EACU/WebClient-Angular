@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HomeDetails } from 'src/app/dashboard/models/home.details.interface';
 import { UserService } from 'src/shared/services/user.service';
 import { AppService } from 'src/app/app.service';
+import { UserInformation } from 'src/shared/models/userInformation.interface';
 
 @Component({
   selector: 'app-main-nav',
@@ -13,7 +13,7 @@ import { AppService } from 'src/app/app.service';
 })
 export class MainNavComponent implements OnInit, OnDestroy {
 
-  userDetails: HomeDetails;
+  userDetails: UserInformation;
   status: boolean;
   subscription: Subscription;
 

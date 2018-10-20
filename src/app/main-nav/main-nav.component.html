@@ -41,11 +41,15 @@
         <a mat-list-item href="#" routerLink="/" routerLinkActive="active" class="not-active">Личный кабинет</a>
         <hr>
       </div>
-      <div *ngIf="status">
-        <h3 mat-subheader><mat-icon class="material-icons md-18">dashboard</mat-icon>Dashboard</h3>
-        <a mat-list-item href="#" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-        <hr>
+
+      <div matTooltip="В ремонте, мяу!" matTooltipPosition="after">
+        <div *ngIf="status">
+          <h3 mat-subheader><mat-icon class="material-icons md-18">dashboard</mat-icon>Dashboard</h3>
+          <a mat-list-item href="#" routerLink="/dashboard" routerLinkActive="active" class="not-active">Dashboard</a>
+          <hr>
+        </div>
       </div>
+
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
