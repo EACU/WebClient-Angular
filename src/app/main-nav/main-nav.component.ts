@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { UserService } from 'src/shared/services/user.service';
-import { AppService } from 'src/app/app.service';
 import { UserInformation } from 'src/shared/models/userInformation.interface';
 
 @Component({
@@ -19,13 +20,14 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(map(result => result.matches));
 
-  constructor(private breakpointObserver: BreakpointObserver, private userService: UserService, private appService: AppService) {}
+  constructor(private breakpointObserver: BreakpointObserver, private userService: UserService) {}
 
   ngOnInit(): void {
     this.subscription = this.userService.authNavStatus$.subscribe(status => this.status = status);
     if (localStorage.getItem('auth_token')) {
-      this.appService.getUserDetails().subscribe(response => this.userDetails = response);
+      this.userService.userDetails().subscribe(response => this.userDetails = response);
     }
+    console.log(`MainNav ngOnInit`);
   }
 
   logout() {
