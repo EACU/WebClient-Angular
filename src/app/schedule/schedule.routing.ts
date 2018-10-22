@@ -10,7 +10,6 @@ export const routing: ModuleWithProviders = RouterModule.forChild([
   {
       path: 'schedule',
       component: RootComponent,
-
       children: [
         { path: '', component: HomeComponent},
         { path: 'group', component: GroupComponent},

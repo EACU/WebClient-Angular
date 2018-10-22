@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Credentials } from '../../../shared/models/credentials.interface';
-import { UserService } from '../../../shared/services/user.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
 
@@ -16,7 +16,7 @@ export class LoginFormComponent {
   submitted = false;
   errors: string;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
 
   login({ value, valid }: { value: Credentials, valid: boolean }) {
@@ -24,7 +24,7 @@ export class LoginFormComponent {
     this.isRequesting = true;
     this.errors = '';
     if (valid) {
-      this.userService.login(value.email, value.password)
+      this.authService.login(value.email, value.password)
         .pipe(finalize(() => this.isRequesting = false))
         .subscribe(
           result => {

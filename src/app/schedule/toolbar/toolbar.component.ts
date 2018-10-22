@@ -3,7 +3,7 @@ import { ICurrentWeek } from '../models/ICurrentWeek';
 import { CookieService } from 'ngx-cookie-service';
 import { ScheduleService } from '../services/schedule.service';
 import { Subscription } from 'rxjs';
-import { UserService } from '../../../shared/services/user.service';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -21,18 +21,18 @@ export class ToolbarComponent implements OnInit, OnDestroy  {
   constructor(
     private cookieService: CookieService,
     private scheduleService: ScheduleService,
-    private userService: UserService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.userService.authNavStatus$.subscribe(status => this.status = status);
+    this.subscription = this.authService.authNavStatus$.subscribe(status => this.status = status);
 
     this.userGroup = this.cookieService.get('ScheduleEACA_Group');
     this.scheduleService.getCurrentWeek().subscribe( response => this.currentWeek = response);
   }
 
   logout() {
-    this.userService.logout();
+    this.authService.logout();
   }
 
   resetCookieGroup() {

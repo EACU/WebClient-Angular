@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseService } from '../../../shared/services/base.service';
 import { ConfigService } from '../../../shared/utils/config.service';
 
-import { HomeDetails } from '../models/home.details.interface';
+import { StudentDetails } from '../models/student.details.interface';
 
 import { catchError } from 'rxjs/operators';
 
@@ -23,6 +23,6 @@ export class DashboardService extends BaseService {
   getHomeDetails() {
     const authToken = localStorage.getItem('auth_token');
     const httpOptions = {headers: new HttpHeaders({ 'Authorization':  `Bearer ${authToken}` })};
-    return this.http.get<HomeDetails>(this.baseUrl + '/dashboard', httpOptions).pipe(catchError(this.handleError));
+    return this.http.get<StudentDetails>(this.baseUrl + '/dashboard', httpOptions).pipe(catchError(this.handleError));
   }
 }

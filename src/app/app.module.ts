@@ -27,17 +27,21 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { AdminPanelModule } from './admin-panel/admin-panel.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MainNavComponent
+    MainNavComponent,
+    ForbiddenComponent
   ],
   imports: [
     AccountModule,
     BrowserModule,
     DashboardModule,
+    AdminPanelModule,
     ScheduleModule,
     HttpClientModule,
     BrowserAnimationsModule,

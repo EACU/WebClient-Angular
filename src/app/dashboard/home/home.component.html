@@ -1,3 +1,4 @@
-<p><strong>Name:</strong> {{homeDetails?.firstName}} {{homeDetails?.lastName}}</p>
-<p *ngIf="homeDetails?.groupId"><strong>Group:</strong> {{homeDetails?.groupId}}</p>
-<div *ngIf="homeDetails?.pictureUrl"><img src="{{homeDetails?.pictureUrl}}" /></div>  
+<p><strong>Name:</strong> {{studentDetails?.firstName}} {{studentDetails?.lastName}}</p>
+<p><strong>Group:</strong> {{studentDetails?.group}}</p>
+<p><strong>Headman?:</strong> {{studentDetails?.headman}}</p>
+<div *ngIf="studentDetails?.pictureUrl"><img src="{{studentDetails?.pictureUrl}}" /></div>  

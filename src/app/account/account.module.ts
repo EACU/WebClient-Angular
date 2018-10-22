@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { routing } from './account.routing';
 
-import { UserService } from '../../shared/services/user.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 import { SharedModule } from '../../shared/modules/shared.module';
 
@@ -35,6 +35,6 @@ import { MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, Ma
     ToolbarComponent,
     RootComponent,
   ],
-  providers: [ UserService, ConfigService ]
+  providers: [ AuthService, ConfigService ]
 })
 export class AccountModule { }

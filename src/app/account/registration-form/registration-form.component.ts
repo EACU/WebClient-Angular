@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../../shared/services/user.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { UserRegistration } from '../../../shared/models/user.registration.interface';
 
 import { finalize } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class RegistrationFormComponent implements OnInit {
   isRequesting: boolean;
   submitted = false;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -25,7 +25,7 @@ export class RegistrationFormComponent implements OnInit {
     this.submitted = true;
     this.isRequesting = true;
     if (valid) {
-      this.userService.register(value.email, value.password, value.firstName, value.lastName, value.group)
+      this.authService.register(value.email, value.password, value.firstName, value.lastName, value.group)
         .pipe(finalize(() => this.isRequesting = false))
         .subscribe(result => {
             if (result) {

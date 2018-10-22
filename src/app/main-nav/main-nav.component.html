@@ -19,11 +19,12 @@
           <a mat-list-item href="#" routerLink="/authentication/register" routerLinkActive="active">Зарегистрироваться</a>
         </div>
         <div *ngIf="status">
-          <a mat-list-item href="#" routerLink="/dashboard/settings" routerLinkActive="active">{{userDetails?.firstName}} {{userDetails?.lastName}}</a>
+          <a mat-list-item href="#" routerLink="/" routerLinkActive="active" class="not-active">Настройки аккаунта</a>
           <a mat-list-item href="#" (click)="logout()" routerLinkActive="active">Выйти</a>
         </div>
         <hr>
       </div>
+
       <div>
         <h3 mat-subheader><mat-icon class="material-icons md-18">event</mat-icon>Расписание</h3>
         <a mat-list-item href="#" routerLink="/schedule" routerLinkActive="active">Домашняя</a>
@@ -31,23 +32,29 @@
         <a mat-list-item href="#" routerLink="/schedule/groupDay" routerLinkActive="active">На день</a>
         <hr>
       </div>
+
       <div matTooltip="В разработке" matTooltipPosition="after">
         <h3 mat-subheader><mat-icon class="material-icons md-18">build</mat-icon>Contests</h3>
         <a mat-list-item href="#" routerLink="/" routerLinkActive="active" class="not-active">Конкурсы</a>
         <hr>
       </div>
+
       <div matTooltip="В разработке" matTooltipPosition="after">
         <h3 mat-subheader><mat-icon class="material-icons md-18">build</mat-icon>Personal Account</h3>
         <a mat-list-item href="#" routerLink="/" routerLinkActive="active" class="not-active">Личный кабинет</a>
         <hr>
       </div>
 
-      <div matTooltip="В ремонте, мяу!" matTooltipPosition="after">
-        <div *ngIf="status">
-          <h3 mat-subheader><mat-icon class="material-icons md-18">dashboard</mat-icon>Dashboard</h3>
-          <a mat-list-item href="#" routerLink="/dashboard" routerLinkActive="active" class="not-active">Dashboard</a>
-          <hr>
-        </div>
+      <div *ngIf="this.userService.isMatchRole('api_access_student')">
+        <h3 mat-subheader><mat-icon class="material-icons md-18">dashboard</mat-icon>Student Information</h3>
+        <a mat-list-item href="#" routerLink="/dashboard" routerLinkActive="active">Информация о студенте</a>
+        <hr>
+      </div>
+
+      <div *ngIf="this.userService.isMatchRole('api_access_admin')">
+        <h3 mat-subheader><mat-icon class="material-icons md-18">dashboard</mat-icon>Admin Panel</h3>
+        <a mat-list-item href="#" routerLink="/admin" routerLinkActive="active">Панель администратора</a>
+        <hr>
       </div>
 
     </mat-nav-list>

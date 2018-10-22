@@ -22,7 +22,8 @@ import { GroupComponent } from './group/group.component';
 import { GroupDayComponent } from './group-day/group-day.component';
 
 import { routing } from './schedule.routing';
-import { UserService } from '../../shared/services/user.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { UserService } from 'src/shared/services/user.service';
 
 @NgModule({
   imports: [
@@ -48,6 +49,6 @@ import { UserService } from '../../shared/services/user.service';
     GroupComponent,
     GroupDayComponent
   ],
-  providers: [UserService]
+  providers: [AuthService , UserService]
 })
 export class ScheduleModule { }

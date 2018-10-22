@@ -4,8 +4,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { UserService } from 'src/shared/services/user.service';
+import { AuthService } from 'src/shared/services/auth.service';
 import { UserInformation } from 'src/shared/models/userInformation.interface';
+import { UserService } from 'src/shared/services/user.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -14,24 +15,25 @@ import { UserInformation } from 'src/shared/models/userInformation.interface';
 })
 export class MainNavComponent implements OnInit, OnDestroy {
 
-  userDetails: UserInformation;
+  userInformation: UserInformation;
+  adminStatus: boolean;
+  studentStatus: boolean;
   status: boolean;
   subscription: Subscription;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(map(result => result.matches));
 
-  constructor(private breakpointObserver: BreakpointObserver, private userService: UserService) {}
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService , private userService: UserService) {}
 
   ngOnInit(): void {
-    this.subscription = this.userService.authNavStatus$.subscribe(status => this.status = status);
+    this.subscription = this.authService.authNavStatus$.subscribe(status => this.status = status);
     if (localStorage.getItem('auth_token')) {
-      this.userService.userDetails().subscribe(response => this.userDetails = response);
+      this.userService.userInformation().subscribe(response => this.userInformation = response);
     }
-    console.log(`MainNav ngOnInit`);
   }
 
   logout() {
-    this.userService.logout();
+    this.authService.logout();
   }
 
   ngOnDestroy() {
