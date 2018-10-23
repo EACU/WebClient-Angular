@@ -41,4 +41,8 @@ export class UserService extends BaseService {
         const userRoles = this.userRoles();
         return userRoles.includes(role);
     }
+
+    getToken() {
+        return localStorage.getItem('auth_token');
+    }
 }

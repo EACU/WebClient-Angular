@@ -4,14 +4,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseService } from '../../../shared/services/base.service';
 import { ConfigService } from '../../../shared/utils/config.service';
 
-import { StudentDetails } from '../models/student.details.interface';
-
 import { catchError } from 'rxjs/operators';
+import { AdminDetails } from '../models/admin.details.interface';
 
 
 @Injectable()
 
-export class DashboardService extends BaseService {
+export class AdminService extends BaseService {
 
   baseUrl = '';
 
@@ -20,7 +19,8 @@ export class DashboardService extends BaseService {
     this.baseUrl = this.configService.getApiURI();
   }
 
-  getHomeDetails() {
-    return this.http.get<StudentDetails>(this.baseUrl + '/student/dashboard').pipe(catchError(this.handleError));
+  getAdminDetails() {
+    return this.http.get<AdminDetails>(this.baseUrl + '/admin/dashboard').pipe(catchError(this.handleError));
   }
+
 }

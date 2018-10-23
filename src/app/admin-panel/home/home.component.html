@@ -1,1 +1,3 @@
-<h1>Admin-Panel Home Componet</h1>
+<p><strong>Name:</strong> {{adminDetails?.firstName}} {{adminDetails?.lastName}}</p>
+<p><strong>Passport:</strong> {{adminDetails?.passport}}</p>
+<div *ngIf="adminDetails?.pictureUrl"><img src="{{adminDetails?.pictureUrl}}" /></div>  

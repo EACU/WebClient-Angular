@@ -17,6 +17,7 @@ import { routing } from './admin-panel.routing';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { AdminService } from './services/admin.service';
 
 @NgModule({
   imports: [
@@ -35,6 +36,6 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   ],
   declarations: [RootComponent, HomeComponent, ToolbarComponent],
   exports: [ ],
-  providers: [AuthGuard]
+  providers: [AuthGuard, AdminService]
 })
 export class AdminPanelModule { }

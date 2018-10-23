@@ -45,13 +45,13 @@
         <hr>
       </div>
 
-      <div *ngIf="this.userService.isMatchRole('api_access_student')">
+      <div *ngIf="isRoleMatch('student')">
         <h3 mat-subheader><mat-icon class="material-icons md-18">dashboard</mat-icon>Student Information</h3>
         <a mat-list-item href="#" routerLink="/dashboard" routerLinkActive="active">Информация о студенте</a>
         <hr>
       </div>
 
-      <div *ngIf="this.userService.isMatchRole('api_access_admin')">
+      <div *ngIf="isRoleMatch('api_access_admin')">
         <h3 mat-subheader><mat-icon class="material-icons md-18">dashboard</mat-icon>Admin Panel</h3>
         <a mat-list-item href="#" routerLink="/admin" routerLinkActive="active">Панель администратора</a>
         <hr>

@@ -16,8 +16,6 @@ import { UserService } from 'src/shared/services/user.service';
 export class MainNavComponent implements OnInit, OnDestroy {
 
   userInformation: UserInformation;
-  adminStatus: boolean;
-  studentStatus: boolean;
   status: boolean;
   subscription: Subscription;
 
@@ -30,6 +28,10 @@ export class MainNavComponent implements OnInit, OnDestroy {
     if (localStorage.getItem('auth_token')) {
       this.userService.userInformation().subscribe(response => this.userInformation = response);
     }
+  }
+
+  isRoleMatch(role: string): boolean {
+    return this.userService.isMatchRole(role);
   }
 
   logout() {

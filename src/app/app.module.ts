@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {
   MatToolbarModule,
@@ -29,6 +29,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminPanelModule } from './admin-panel/admin-panel.module';
+import { AuthInterceptor } from 'src/shared/services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,12 @@ import { AdminPanelModule } from './admin-panel/admin-panel.module';
   providers: [
     ScheduleService,
     CookieService,
-    AppService
+    AppService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: []
