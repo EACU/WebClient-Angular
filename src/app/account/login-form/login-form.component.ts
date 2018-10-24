@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Credentials } from '../../../shared/models/credentials.interface';
-import { AuthService } from '../../../shared/services/auth.service';
+import { Credentials } from '../models/user.credentials.interface';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
 
@@ -17,7 +17,6 @@ export class LoginFormComponent {
   errors: string;
 
   constructor(private authService: AuthService, private router: Router) { }
-
 
   login({ value, valid }: { value: Credentials, valid: boolean }) {
     this.submitted = true;

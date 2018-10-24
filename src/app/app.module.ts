@@ -12,24 +12,24 @@ import {
   MatCardModule, MatButtonModule
 } from '@angular/material';
 
+import { LayoutModule } from '@angular/cdk/layout';
 import { AccountModule } from './account/account.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ScheduleModule } from './schedule/schedule.module';
+import { AdminPanelModule } from './admin-panel/admin-panel.module';
 
 import { ScheduleService } from './schedule/services/schedule.service';
 import { CookieService } from 'ngx-cookie-service';
 import { AppService } from './app.service';
 
-import { routing } from './app.routing';
-
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
-import { AdminPanelModule } from './admin-panel/admin-panel.module';
-import { AuthInterceptor } from 'src/shared/services/auth.interceptor';
+
+import { AuthInterceptor } from 'src/shared/interceptors/auth.interceptor';
+
+import { routing } from './app.routing';
 
 @NgModule({
   declarations: [

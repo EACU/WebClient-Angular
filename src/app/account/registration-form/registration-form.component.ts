@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../shared/services/auth.service';
-import { UserRegistration } from '../../../shared/models/user.registration.interface';
+import { AuthService } from '../services/auth.service';
+import { UserRegistration } from '../models/user.registration.interface';
 
 import { finalize } from 'rxjs/operators';
 

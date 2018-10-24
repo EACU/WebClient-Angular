@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../../shared/modules/shared.module';
+import { MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+
+import { RootComponent } from './root/root.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { FormsModule } from '@angular/forms';
 
-import { routing } from './account.routing';
-
-import { AuthService } from '../../shared/services/auth.service';
-
-import { SharedModule } from '../../shared/modules/shared.module';
+import { ConfigService } from '../../shared/utils/config.service';
+import { AuthService } from './services/auth.service';
 
 import { EmailValidatorDirective } from '../directive/email.validator.directive';
-import { ConfigService } from '../../shared/utils/config.service';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { RootComponent } from './root/root.component';
-import { MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+
+import { routing } from './account.routing';
 
 @NgModule({
   imports: [

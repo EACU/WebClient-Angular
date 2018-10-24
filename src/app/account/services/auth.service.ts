@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { UserRegistration } from '../models/user.registration.interface';
-import { ConfigService } from '../utils/config.service';
+import { ConfigService } from '../../../shared/utils/config.service';
 
-import { BaseService } from './base.service';
+import { BaseService } from '../../../shared/services/base.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { map, catchError } from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class AuthService extends BaseService {
 
     constructor(private http: HttpClient, private configService: ConfigService) {
         super();
-        this.loggedIn = !!localStorage.getItem('auth_token');
+        this.loggedIn = !!localStorage.getItem('accessToken');
         this._authNavStatusSource.next(this.loggedIn);
         this.baseUrl = this.configService.getApiURI();
     }
@@ -33,9 +33,11 @@ export class AuthService extends BaseService {
     }
 
     login(userName, password) {
-        return this.http.post<{id, auth_token, expires_in, error}>(this.baseUrl + '/accounts/login', { userName, password }).pipe(
+        return this.http.post<{accessToken, refreshToken, expires_in, error}>(this.baseUrl + '/accounts/login', {userName, password}).pipe(
             map(res => {
-                localStorage.setItem('auth_token', res.auth_token);
+                localStorage.setItem('accessToken', res.accessToken);
+                localStorage.setItem('refreshToken', res.refreshToken);
+                localStorage.setItem('expires_in', res.expires_in);
                 this.loggedIn = true;
                 this._authNavStatusSource.next(true);
                 return true;

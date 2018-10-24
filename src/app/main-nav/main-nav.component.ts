@@ -4,8 +4,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthService } from 'src/shared/services/auth.service';
-import { UserInformation } from 'src/shared/models/userInformation.interface';
+import { AuthService } from 'src/app/account/services/auth.service';
 import { UserService } from 'src/shared/services/user.service';
 
 @Component({
@@ -15,7 +14,6 @@ import { UserService } from 'src/shared/services/user.service';
 })
 export class MainNavComponent implements OnInit, OnDestroy {
 
-  userInformation: UserInformation;
   status: boolean;
   subscription: Subscription;
 
@@ -25,9 +23,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe(status => this.status = status);
-    if (localStorage.getItem('auth_token')) {
-      this.userService.userInformation().subscribe(response => this.userInformation = response);
-    }
   }
 
   isRoleMatch(role: string): boolean {
