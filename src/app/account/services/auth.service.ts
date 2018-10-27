@@ -7,7 +7,7 @@ import { ConfigService } from '../../../shared/utils/config.service';
 import { BaseService } from '../../../shared/services/base.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -29,10 +29,10 @@ export class AuthService extends BaseService {
     register(email: string, password: string, firstName: string, lastName: string, group: string): Observable<UserRegistration> {
         const body = JSON.stringify({ email, password, firstName, lastName, group});
         const httpOptions = {headers: new HttpHeaders({ 'Content-Type':  'application/json' })};
-        return this.http.post<UserRegistration>(this.baseUrl + '/accounts/register', body, httpOptions).pipe(catchError(this.handleError));
+        return this.http.post<UserRegistration>(this.baseUrl + '/accounts/register', body, httpOptions);
     }
 
-    login(userName, password) {
+    login(userName, password): Observable<boolean> {
         return this.http.post<{accessToken, refreshToken, expires_in, error}>(this.baseUrl + '/accounts/login', {userName, password}).pipe(
             map(res => {
                 localStorage.setItem('accessToken', res.accessToken);
@@ -41,8 +41,7 @@ export class AuthService extends BaseService {
                 this.loggedIn = true;
                 this._authNavStatusSource.next(true);
                 return true;
-            }),
-            catchError(e => this.handleError(e))
+            })
         );
     }
 

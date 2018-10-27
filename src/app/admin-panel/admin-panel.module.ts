@@ -9,7 +9,8 @@ import {
   MatButtonModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '../auth.guard';
@@ -32,7 +33,8 @@ import { AdminService } from './services/admin.service';
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatProgressSpinnerModule
   ],
   declarations: [RootComponent, HomeComponent, ToolbarComponent],
   exports: [ ],

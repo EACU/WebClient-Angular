@@ -18,9 +18,11 @@ import { UserService } from '../services/user.service';
 import { ConfigService } from '../utils/config.service';
 import { AuthService } from 'src/app/account/services/auth.service';
 import { IUserTokens } from '../models/user.tokens.interface';
+import { BaseService } from '../services/base.service';
+import { nextTick } from 'q';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class AuthInterceptor extends BaseService implements HttpInterceptor {
 
     baseUrl: string;
     isRefreshingToken = false;
@@ -31,6 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
         private configService: ConfigService,
         private userService: UserService,
         private authService: AuthService) {
+            super();
             this.baseUrl = this.configService.getApiURI();
         }
 
@@ -46,11 +49,11 @@ export class AuthInterceptor implements HttpInterceptor {
                 if (err instanceof HttpErrorResponse) {
                     switch ((<HttpErrorResponse>err).status) {
                         case 400:
-                            return <any>this.handle400Error();
+                            return this.handle400Error(err);
                         case 401:
                             return this.handle401Error(req, next);
                         case 403:
-                            return <any>this.handle403Error();
+                            return this.handle403Error();
                     }
                 } else {
                     return throwError(err);
@@ -59,9 +62,8 @@ export class AuthInterceptor implements HttpInterceptor {
         );
     }
 
-    handle400Error() {
-        this.authService.logout();
-        this.router.navigate(['/authentication/login']);
+    handle400Error(err) {
+        return this.handleError(err);
     }
 
     handle401Error(req: HttpRequest<any>, next: HttpHandler) {
@@ -99,7 +101,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     handle403Error() {
         this.authService.logout();
-        this.router.navigate(['/forbidden']);
+        return this.router.navigate(['/forbidden']);
     }
 
 }
