@@ -2,7 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/modules/shared.module';
-import { MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+import {
+  MatToolbarModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatButtonModule,
+  MatProgressBarModule
+} from '@angular/material';
 
 import { RootComponent } from './root/root.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -27,6 +34,7 @@ import { routing } from './account.routing';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatProgressBarModule
   ],
   declarations: [
     RegistrationFormComponent,

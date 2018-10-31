@@ -25,11 +25,11 @@ export class ScheduleService extends BaseService {
   }
 
   getWeekScheduleGroup(parity, groupId) {
-    return this.http.get<ISchedule>(`${this.baseUrl}/${parity}/${groupId}`);
+    return this.http.get<ISchedule>(`${this.baseUrl}/${groupId}/${parity}`);
   }
 
   getDayScheduleGroup(parity, groupId, day) {
-    return this.http.get<IDailySchedule>(`${this.baseUrl}/${parity}/${groupId}/${day}`);
+    return this.http.get<IDailySchedule>(`${this.baseUrl}/${groupId}/${parity}/${day}`);
   }
 
   getListGroup() {

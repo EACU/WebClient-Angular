@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ISchedule } from '../models/ISchedule';
+import { finalize } from 'rxjs/internal/operators/finalize';
 
 @Component({
   selector: 'app-group',
@@ -14,9 +15,11 @@ import { ISchedule } from '../models/ISchedule';
 
 export class GroupComponent implements OnInit {
 
-  isScheduleLoaded = false;
   schedule: ISchedule;
   scheduleForms: FormGroup;
+
+  isRequesting = false;
+  errors: string;
 
   parity = [
     { value: 'even', valueView: 'Чётная' },
@@ -29,7 +32,6 @@ export class GroupComponent implements OnInit {
     private formbuilder: FormBuilder) {
 
      }
-
 
   ngOnInit(): void {
     this.initForm();
@@ -54,12 +56,19 @@ export class GroupComponent implements OnInit {
   }
 
   loadSchedule() {
-    this.isScheduleLoaded = false;
+    this.errors = undefined;
+    this.schedule = undefined;
+    this.isRequesting = true;
     this.scheduleService.getWeekScheduleGroup(this.getFormValue('parityWeek'), this.getFormValue('group'))
-      .subscribe(response => {
-        this.schedule = response;
-        this.isScheduleLoaded = true;
-      });
+      .pipe(finalize(() => this.isRequesting = false))
+      .subscribe(
+        response => {
+          this.schedule = response;
+        },
+        error => {
+          this.errors = error;
+        }
+      );
     this.cookieService.set('ScheduleEACA_Group', this.getFormValue('group'));
   }
 

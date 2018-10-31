@@ -4,7 +4,9 @@
       <mat-card-title>Регистриция</mat-card-title>
       <mat-card-subtitle>Пожалуйста заполните форму</mat-card-subtitle>
     </mat-card-header>
+
     <mat-card-content>
+
         <mat-form-field class="full-width">
           <mat-label>Имя</mat-label>
           <input matInput placeholder="Введите имя" id="first-name" name="firstName"  ngModel>
@@ -34,13 +36,19 @@
           <input matInput type="password" placeholder="Введите пароль, пароль должен быть больше 6 символов" id="password" name="password" required ngModel>
           <mat-hint></mat-hint>
         </mat-form-field>
+
     </mat-card-content>
+
     <mat-card-actions>
       <button type="submit" class="btn btn-primary" [disabled]="f.invalid || isRequesting">Зарегистрироваться</button>
-      <app-spinner [isRunning]="isRequesting"></app-spinner>
     </mat-card-actions>
+
   </mat-card>
 </form>
+
+<mat-card *ngIf="isRequesting">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>   
+</mat-card>
 
 <mat-card *ngIf="errors">
   <p>Ошибки на стороне сервера:</p>
@@ -48,5 +56,5 @@
     <div *ngFor="let error of errors">
       {{error}}
     </div>
-  </div>    
+  </div>
 </mat-card>

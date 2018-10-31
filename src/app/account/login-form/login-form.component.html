@@ -24,11 +24,14 @@
 
     <mat-card-actions>
       <button type="submit" class="btn btn-primary" [disabled]="f.invalid || isRequesting">Войти</button>
-      <app-spinner [isRunning]="isRequesting"></app-spinner> 
     </mat-card-actions>
 
   </mat-card>
 </form>
+
+<mat-card *ngIf="isRequesting">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>   
+</mat-card>
 
 <mat-card *ngIf="errors">
   <p>Ошибки на стороне сервера:</p>

@@ -30,18 +30,6 @@ export class UserService extends BaseService {
         return this.http.get<UserDetails>(this.baseUrl + '/accounts/information/').pipe(catchError(this.handleError));
     }
 
-    getUserRoles(): string[] {
-        const token = this.getAuthenticationToken();
-        if (token) {
-            const decodeToken = decode(token);
-            if (typeof decodeToken.rol !== 'undefined') {
-                return decodeToken.rol;
-            }
-            return ['not roles'];
-        }
-        return ['not token'];
-    }
-
     getRefreshToken(): Observable<IUserTokens> {
         const refreshToken = localStorage.getItem('refreshToken');
         const body = JSON.stringify({ token: refreshToken });
@@ -50,7 +38,13 @@ export class UserService extends BaseService {
     }
 
     isMatchRole(role: string): boolean {
-        const userRoles = this.getUserRoles();
-        return userRoles.includes(role);
+        const token = this.getAuthenticationToken();
+        if (token) {
+            const decodeToken = decode(token);
+            if (typeof decodeToken.rol !== 'undefined') {
+                return decodeToken.rol.includes(role);
+            }
+        }
+        return false;
     }
 }

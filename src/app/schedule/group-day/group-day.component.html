@@ -39,38 +39,45 @@
   </mat-card>
 </div>
 
-<mat-card>
-  <mat-progress-bar *ngIf="!isScheduleLoaded" mode="indeterminate"></mat-progress-bar>
+<mat-card *ngIf="schedule">
+  <section class="mat-typography">
+    <h1>{{schedule.day}}</h1>
+  </section>
+  <table mat-table [dataSource]="schedule.lessons" class="mat-elevation-z8">
 
-  <ng-container *ngIf="isScheduleLoaded && schedule">
-    <section class="mat-typography">
-      <h1>{{schedule.day}}</h1>
-    </section>
-    <table mat-table [dataSource]="schedule.lessons" class="mat-elevation-z8">
+    <!-- Колонка номера пары -->
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef>№</th>
+      <td mat-cell *matCellDef="let e; let i = index"> {{i + 1}} </td>
+    </ng-container>
+
+    <!-- Колонка времени -->
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef>Время</th>
+      <td mat-cell *matCellDef="let e"> {{e.time}} </td>
+    </ng-container>
+
+    <!-- Колонка пар -->
+    <ng-container matColumnDef="lessonName">
+      <th mat-header-cell *matHeaderCellDef>Название пары</th>
+      <td mat-cell *matCellDef="let e"> {{e.lessonName}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['number', 'time', 'lessonName']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['number', 'time', 'lessonName'];"></tr>
+  </table>
   
-      <!-- Колонка номера пары -->
-      <ng-container matColumnDef="number">
-        <th mat-header-cell *matHeaderCellDef>№</th>
-        <td mat-cell *matCellDef="let e; let i = index"> {{i + 1}} </td>
-      </ng-container>
-  
-      <!-- Колонка времени -->
-      <ng-container matColumnDef="time">
-        <th mat-header-cell *matHeaderCellDef>Время</th>
-        <td mat-cell *matCellDef="let e"> {{e.time}} </td>
-      </ng-container>
-  
-      <!-- Колонка пар -->
-      <ng-container matColumnDef="lessonName">
-        <th mat-header-cell *matHeaderCellDef>Название пары</th>
-        <td mat-cell *matCellDef="let e"> {{e.lessonName}} </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="['number', 'time', 'lessonName']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['number', 'time', 'lessonName'];"></tr>
-    </table>
-  
-  </ng-container>
 </mat-card>
 
+<mat-card *ngIf="isRequesting">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>   
+</mat-card>
 
+<mat-card *ngIf="errors">
+  <p>Ошибки на стороне сервера:</p>
+  <div class="alert alert-danger" role="alert">
+    <div *ngFor="let error of errors">
+      {{error}}
+    </div>
+  </div>
+</mat-card>

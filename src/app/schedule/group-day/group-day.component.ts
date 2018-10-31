@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { IDailySchedule } from '../models/IDailySchedule';
+import { finalize } from 'rxjs/internal/operators/finalize';
 
 @Component({
   selector: 'app-group-day',
@@ -13,10 +14,12 @@ import { IDailySchedule } from '../models/IDailySchedule';
 })
 export class GroupDayComponent implements OnInit {
 
-  isScheduleLoaded = false;
   schedule: IDailySchedule;
   scheduleForms: FormGroup;
   currentDay: string;
+
+  isRequesting = false;
+  errors: string;
 
   options = [
     { id: '0', day: 'Понедельник' },
@@ -64,12 +67,19 @@ export class GroupDayComponent implements OnInit {
   }
 
   loadSchedule() {
-    this.isScheduleLoaded = false;
+    this.errors = undefined;
+    this.schedule = undefined;
+    this.isRequesting = true;
     this.scheduleService.getDayScheduleGroup(this.getFormValue('parityWeek'), this.getFormValue('group'), this.getFormValue('day'))
-      .subscribe(response => {
-        this.schedule = response;
-        this.isScheduleLoaded = true;
-      });
+      .pipe(finalize(() => this.isRequesting = false))
+      .subscribe(
+        response => {
+          this.schedule = response;
+        },
+        error => {
+          this.errors = error;
+        }
+      );
     this.cookieService.set('ScheduleEACA_Group', this.getFormValue('group'));
   }
 
