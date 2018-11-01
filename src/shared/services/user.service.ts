@@ -27,7 +27,7 @@ export class UserService extends BaseService {
     }
 
     getUserDetails(): Observable<UserDetails> {
-        return this.http.get<UserDetails>(this.baseUrl + '/accounts/information/').pipe(catchError(this.handleError));
+        return this.http.get<UserDetails>(this.baseUrl + '/account/information/').pipe(catchError(this.handleError));
     }
 
     getRefreshToken(): Observable<IUserTokens> {

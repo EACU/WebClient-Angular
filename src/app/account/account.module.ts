@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/modules/shared.module';
 import {
   MatToolbarModule,
@@ -8,7 +8,11 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatButtonModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatStepperModule,
+  MatIconModule,
+  MatListModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 import { RootComponent } from './root/root.component';
@@ -34,7 +38,11 @@ import { routing } from './account.routing';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatStepperModule,
+    MatIconModule,
+    MatCheckboxModule,
+    ReactiveFormsModule
   ],
   declarations: [
     RegistrationFormComponent,

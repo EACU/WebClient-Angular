@@ -1,50 +1,92 @@
-<form #f="ngForm" autocomplete="off" novalidate (ngSubmit)="registerUser(f)">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Регистриция</mat-card-title>
-      <mat-card-subtitle>Пожалуйста заполните форму</mat-card-subtitle>
-    </mat-card-header>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Регистрация</mat-card-title>
+    <mat-card-subtitle>Пожалуйста заполните поля</mat-card-subtitle>
+  </mat-card-header>
 
-    <mat-card-content>
+  <mat-horizontal-stepper linear #stepper>
 
-        <mat-form-field class="full-width">
-          <mat-label>Имя</mat-label>
-          <input matInput placeholder="Введите имя" id="first-name" name="firstName"  ngModel>
-          <mat-hint></mat-hint>
-        </mat-form-field>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Заполните контактнаю информацию</ng-template>
+        <div class="example-container">
 
-        <mat-form-field class="full-width">
-          <mat-label>Фамилия</mat-label>
-          <input matInput placeholder="Введите фамилию" id="last-name" name="lastName"  ngModel>
-          <mat-hint></mat-hint>
-        </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Почта" formControlName="Email" required>
+            </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <mat-label>Группа</mat-label>
-          <input matInput placeholder="Номер группы состоит из 3-х цифр. Например: 121" id="group" name="group"  ngModel>
-          <mat-hint></mat-hint>
-        </mat-form-field>
+            <mat-form-field>
+              <mat-label>Пароль</mat-label>
+              <input matInput placeholder="Введите пароль, пароль должен быть больше 6 символов" formControlName="Password" required>
+            </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <mat-label>Почта</mat-label>
-          <input matInput placeholder="Введите корректную почту" id="email" name="email" validateEmail required ngModel #email="ngModel">
-          <mat-hint></mat-hint>
-        </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Имя" formControlName="FirstName" required>
+            </mat-form-field>
+  
+            <mat-form-field>
+                <input matInput placeholder="Фамилия" formControlName="LastName" required>
+            </mat-form-field>
+  
+            <mat-form-field>
+              <mat-label>Номер телефона</mat-label>
+              <input matInput placeholder="В формате: +79125324123" formControlName="Phone" required>
+            </mat-form-field>
+            
+        </div>
+      
+        <div>
+          <button mat-flat-button matStepperNext>Дальше</button>
+        </div>
 
-        <mat-form-field class="full-width">
-          <mat-label>Пароль</mat-label>
-          <input matInput type="password" placeholder="Введите пароль, пароль должен быть больше 6 символов" id="password" name="password" required ngModel>
-          <mat-hint></mat-hint>
-        </mat-form-field>
+      </form>
+    </mat-step>
 
-    </mat-card-content>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Заполните студенческую информацию</ng-template>
+        <div class="example-container">
+          <mat-form-field>
+            <mat-label>Номер группы</mat-label>
+            <input matInput placeholder="Номер группы состоит из 3-х цифр. Например: 121"  formControlName="Group" required>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput placeholder="Номер зачётной книжки" formControlName="Gradebook" required>
+          </mat-form-field>
 
-    <mat-card-actions>
-      <button type="submit" class="btn btn-primary" [disabled]="f.invalid || isRequesting">Зарегистрироваться</button>
-    </mat-card-actions>
+          <p>
+            <mat-checkbox formControlName="Headman">Вы староста?</mat-checkbox>
+          </p>
 
-  </mat-card>
-</form>
+        </div>
+       
+        <div>
+          <button mat-button matStepperPrevious>Назад</button>
+          <button mat-flat-button matStepperNext>Дальше</button>
+        </div>
+
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Отправка</ng-template>
+      <p>Проверьте информацию:</p>
+      <p>Почта: {{this.firstFormGroup.value.Email}}</p>
+      <p>Имя: {{this.firstFormGroup.value.FirstName}}</p>
+      <p>Фамилия: {{this.firstFormGroup.value.LastName}}</p>
+      <p>Номер телефона: {{this.firstFormGroup.value.Phone}}</p>
+      <p>Группа: {{this.secondFormGroup.value.Group}}</p>
+      <p>Номер зачётной книжки: {{this.secondFormGroup.value.Gradebook}}</p>
+      <p>Староста?: {{this.secondFormGroup.value.Headman}}</p>
+      <div>
+        <button mat-button matStepperPrevious>Назад</button>
+        <button mat-flat-button color="warn" (click)="done()">Отправить</button>
+      </div>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+</mat-card>
 
 <mat-card *ngIf="isRequesting">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>   

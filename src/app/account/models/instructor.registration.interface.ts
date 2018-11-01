@@ -1,7 +1,6 @@
-export interface UserRegistration {
+export interface IInstructorRegistration {
     email: string;
     password: string;
     firstName: string;
     lastName: string;
-    group: string;
 }

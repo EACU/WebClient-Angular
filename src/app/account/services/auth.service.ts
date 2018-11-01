@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { UserRegistration } from '../models/user.registration.interface';
+import { StudentRegistrationViewModel } from '../models/student.registration.interface';
 import { ConfigService } from '../../../shared/utils/config.service';
 
 import { BaseService } from '../../../shared/services/base.service';
@@ -26,14 +26,14 @@ export class AuthService extends BaseService {
         this.baseUrl = this.configService.getApiURI();
     }
 
-    register(email: string, password: string, firstName: string, lastName: string, group: string): Observable<UserRegistration> {
-        const body = JSON.stringify({ email, password, firstName, lastName, group});
+    registerStudent(student: StudentRegistrationViewModel): Observable<string> {
+        const body = JSON.stringify(student);
         const httpOptions = {headers: new HttpHeaders({ 'Content-Type':  'application/json' })};
-        return this.http.post<UserRegistration>(this.baseUrl + '/accounts/register', body, httpOptions);
+        return this.http.post<string>(this.baseUrl + '/account/register/student', body, httpOptions);
     }
 
     login(userName, password): Observable<boolean> {
-        return this.http.post<{accessToken, refreshToken, expires_in, error}>(this.baseUrl + '/accounts/login', {userName, password}).pipe(
+        return this.http.post<{accessToken, refreshToken, expires_in, error}>(this.baseUrl + '/account/login', {userName, password}).pipe(
             map(res => {
                 localStorage.setItem('accessToken', res.accessToken);
                 localStorage.setItem('refreshToken', res.refreshToken);
