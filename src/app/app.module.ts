@@ -26,17 +26,23 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { MainHeaderComponent } from './main-header/main-header.component';
+import { MainFooterComponent } from './main-footer/main-footer.component';
 
 import { AuthInterceptor } from 'src/shared/interceptors/auth.interceptor';
 
 import { routing } from './app.routing';
+import { SidenavService } from 'src/shared/services/sidenav.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MainNavComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    MainHeaderComponent,
+    MainFooterComponent
   ],
   imports: [
     AccountModule,
@@ -60,6 +66,7 @@ import { routing } from './app.routing';
     ScheduleService,
     CookieService,
     AppService,
+    SidenavService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
