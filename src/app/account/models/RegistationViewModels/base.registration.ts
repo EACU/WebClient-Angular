@@ -1,10 +1,7 @@
-export class StudentRegistrationViewModel {
+export abstract class BaseRegistationViewModel {
     email: string;
     password: string;
     firstName: string;
     lastName: string;
     phoneNumber: string;
-    group: string;
-    gradebook: string;
-    headman: boolean;
 }

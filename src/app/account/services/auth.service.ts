@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { StudentRegistrationViewModel } from '../models/student.registration.interface';
+import { StudentRegistrationViewModel } from '../models/RegistationViewModels/student.registration';
 import { ConfigService } from '../../../shared/utils/config.service';
 
 import { BaseService } from '../../../shared/services/base.service';

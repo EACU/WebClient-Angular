@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { StudentRegistrationViewModel } from '../models/student.registration.interface';
+import { StudentRegistrationViewModel } from '../models/RegistationViewModels/student.registration';
 
 import { finalize } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -60,7 +60,6 @@ export class RegistrationFormComponent implements OnInit {
       .pipe(finalize(() => this.isRequesting = false))
       .subscribe(result => {
           if (result) {
-            console.log(result);
             this.router.navigate(['/authentication/login']);
           }},
         errors => this.errors = errors

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Credentials } from '../models/user.credentials.interface';
+import { Credentials } from '../models/LoginViewModels/user.credentials.interface';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
