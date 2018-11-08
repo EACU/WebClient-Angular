@@ -7,23 +7,19 @@ import { ConfigService } from '../../../shared/utils/config.service';
 import { BaseService } from '../../../shared/services/base.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { ILoginResponse } from '../models/loginResponse.interface';
+import { IUserTokens } from 'src/shared/models/user.tokens.interface';
+import { IUser } from 'src/shared/models/user.information.interface';
+import { UserService } from 'src/shared/services/user.service';
 
 @Injectable()
 export class AuthService extends BaseService {
 
-    baseUrl: string;
+    private baseUrl: string;
 
-    private _authNavStatusSource = new BehaviorSubject<boolean>(false);
-    authNavStatus$ = this._authNavStatusSource.asObservable();
-
-    private loggedIn = false;
-
-    constructor(private http: HttpClient, private configService: ConfigService) {
+    constructor(private http: HttpClient, private configService: ConfigService, private userService: UserService) {
         super();
-        this.loggedIn = !!localStorage.getItem('accessToken');
-        this._authNavStatusSource.next(this.loggedIn);
         this.baseUrl = this.configService.getApiURI();
     }
 
@@ -39,20 +35,21 @@ export class AuthService extends BaseService {
                 localStorage.setItem('accessToken', loginResponse.accessToken);
                 localStorage.setItem('refreshToken', loginResponse.refreshToken);
                 localStorage.setItem('expires_in', loginResponse.expires_in);
-                this.loggedIn = true;
-                this._authNavStatusSource.next(true);
+                this.userService.getApiUserInformation().subscribe(user => this.userService.setCurrentUser(user));
                 return true;
             })
         );
     }
 
-    logout() {
-        localStorage.clear();
-        this.loggedIn = false;
-        this._authNavStatusSource.next(false);
+    getRefreshToken(): Observable<IUserTokens> {
+        const refreshToken = localStorage.getItem('refreshToken');
+        const body = JSON.stringify({ token: refreshToken });
+        const httpOptions = {headers: new HttpHeaders({ 'Content-Type':  'application/json' })};
+        return this.http.post<IUserTokens>(this.baseUrl + '/token/refresh', body, httpOptions).pipe(catchError(this.handleError));
     }
 
-    isLoggedIn() {
-        return this.loggedIn;
+    logout() {
+        localStorage.clear();
+        this.userService.setCurrentUser(null);
     }
 }

@@ -26,13 +26,13 @@ import { AuthService } from './services/auth.service';
 import { EmailValidatorDirective } from '../directive/email.validator.directive';
 
 import { routing } from './account.routing';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     routing,
-    SharedModule,
     MatToolbarModule,
     MatCardModule,
     MatFormFieldModule,
@@ -50,6 +50,7 @@ import { routing } from './account.routing';
     LoginFormComponent,
     ToolbarComponent,
     RootComponent,
+    SettingsComponent,
   ],
   providers: [ AuthService, ConfigService ]
 })

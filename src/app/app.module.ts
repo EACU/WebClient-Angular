@@ -9,7 +9,7 @@ import {
   MatListModule,
   MatTooltipModule,
   MatIconModule,
-  MatCardModule, MatButtonModule, MatDividerModule
+  MatCardModule, MatButtonModule, MatDividerModule, MatMenuModule
 } from '@angular/material';
 
 import { LayoutModule } from '@angular/cdk/layout';
@@ -33,7 +33,6 @@ import { AuthInterceptor } from 'src/shared/interceptors/auth.interceptor';
 
 import { routing } from './app.routing';
 import { SidenavService } from 'src/shared/services/sidenav.service';
-import { UserService } from 'src/shared/services/user.service';
 
 
 @NgModule({
@@ -62,13 +61,13 @@ import { UserService } from 'src/shared/services/user.service';
     routing,
     LayoutModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
+    MatMenuModule
   ],
   providers: [
     ScheduleService,
     CookieService,
     AppService,
-    UserService,
     SidenavService,
     {
       provide: HTTP_INTERCEPTORS,

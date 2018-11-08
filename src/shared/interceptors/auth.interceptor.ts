@@ -3,7 +3,6 @@ import {
     HttpInterceptor,
     HttpHandler,
     HttpRequest,
-    HttpClient,
     HttpErrorResponse,
     HttpHeaderResponse,
     HttpSentEvent,
@@ -19,7 +18,6 @@ import { ConfigService } from '../utils/config.service';
 import { AuthService } from 'src/app/account/services/auth.service';
 import { IUserTokens } from '../models/user.tokens.interface';
 import { BaseService } from '../services/base.service';
-import { nextTick } from 'q';
 
 @Injectable()
 export class AuthInterceptor extends BaseService implements HttpInterceptor {
@@ -73,7 +71,7 @@ export class AuthInterceptor extends BaseService implements HttpInterceptor {
 
             this.tokenSubject.next(null);
 
-            return this.userService.getRefreshToken().pipe(
+            return this.authService.getRefreshToken().pipe(
                 switchMap((userTokens: IUserTokens) => {
                     if (userTokens) {
                         this.tokenSubject.next(userTokens.accessToken);
