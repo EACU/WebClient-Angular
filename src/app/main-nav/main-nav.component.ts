@@ -13,30 +13,19 @@ import { MatSidenav } from '@angular/material';
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css']
 })
-export class MainNavComponent implements OnInit, OnDestroy {
+export class MainNavComponent implements OnInit {
 
   @ViewChild('sidenav') public sidenav: MatSidenav;
-
-  status: boolean;
-  subscription: Subscription;
 
   constructor(private authService: AuthService , private userService: UserService, private sidenavService: SidenavService) {}
 
   ngOnInit(): void {
     this.sidenavService.setSidenav(this.sidenav);
-    this.subscription = this.authService.authNavStatus$.subscribe(status => this.status = status);
   }
 
   isRoleMatch(role: string): boolean {
     return this.userService.isMatchRole(role);
   }
 
-  logout() {
-    this.authService.logout();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }
 

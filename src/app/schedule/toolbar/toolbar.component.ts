@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ICurrentWeek } from '../models/ICurrentWeek';
 import { CookieService } from 'ngx-cookie-service';
 import { ScheduleService } from '../services/schedule.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-toolbar',

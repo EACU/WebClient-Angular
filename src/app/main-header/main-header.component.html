@@ -1,4 +1,17 @@
-<mat-toolbar class="main-header">
-    Header
+<mat-toolbar color="primary" class="main-header">
+
     <button mat-button (click)="toggleSidenav()">Меню</button>
+
+    <span class="fill-remaining-space"></span>
+    <p>{{currentUser?.firstName}}</p>
+    <div *ngIf="isLoggin">
+        <button mat-button routerLink="/" routerLinkActive="active">Настройки аккаунта</button>
+        <button mat-button (click)="logout()" routerLinkActive="active">Выйти</button>
+    </div>
+
+    <div *ngIf="!isLoggin">
+        <button mat-button routerLink="/authentication/login" routerLinkActive="active">SignIn</button>
+        <button mat-raised-button color="accent" routerLink="/authentication/register" routerLinkActive="active">SignUp</button>
+    </div>
+
 </mat-toolbar>

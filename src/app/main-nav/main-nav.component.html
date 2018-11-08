@@ -1,53 +1,37 @@
 <mat-sidenav-container class="sidenav-container">
 
-  <mat-sidenav #sidenav mode="side" opened class="example-sidenav" fixedInViewport="false">
+  <mat-sidenav #sidenav mode="over" closed class="sidenav" fixedInViewport="false">
 
     <mat-nav-list>
+
       <a mat-list-item href="#" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Главная</a>
-      <hr>
-      <div>
-        <h3 mat-subheader><mat-icon class="material-icons md-18">verified_user</mat-icon>Аутентификация</h3>
-        <div *ngIf="!status">
-          <a mat-list-item href="#" routerLink="/authentication/login" routerLinkActive="active">Войти</a>
-          <a mat-list-item href="#" routerLink="/authentication/register" routerLinkActive="active">Зарегистрироваться</a>
-        </div>
-        <div *ngIf="status">
-          <a mat-list-item href="#" routerLink="/" routerLinkActive="active" class="not-active">Настройки аккаунта</a>
-          <a mat-list-item href="#" (click)="logout()" routerLinkActive="active">Выйти</a>
-        </div>
-        <hr>
-      </div>
+      <mat-divider></mat-divider>
 
       <div>
-        <h3 mat-subheader><mat-icon class="material-icons md-18">event</mat-icon>Расписание</h3>
         <a mat-list-item href="#" routerLink="/schedule" routerLinkActive="active">Домашняя</a>
         <a mat-list-item href="#" routerLink="/schedule/group" routerLinkActive="active">На неделю</a>
         <a mat-list-item href="#" routerLink="/schedule/groupDay" routerLinkActive="active">На день</a>
-        <hr>
-      </div>
-
-      <div matTooltip="В разработке" matTooltipPosition="after">
-        <h3 mat-subheader><mat-icon class="material-icons md-18">build</mat-icon>Contests</h3>
-        <a mat-list-item href="#" routerLink="/" routerLinkActive="active" class="not-active">Конкурсы</a>
-        <hr>
-      </div>
-
-      <div matTooltip="В разработке" matTooltipPosition="after">
-        <h3 mat-subheader><mat-icon class="material-icons md-18">build</mat-icon>Personal Account</h3>
-        <a mat-list-item href="#" routerLink="/" routerLinkActive="active" class="not-active">Личный кабинет</a>
-        <hr>
+        <mat-divider></mat-divider>
       </div>
 
       <div *ngIf="isRoleMatch('student')">
-        <h3 mat-subheader><mat-icon class="material-icons md-18">dashboard</mat-icon>Student Information</h3>
         <a mat-list-item href="#" routerLink="/dashboard" routerLinkActive="active">Информация о студенте</a>
-        <hr>
+        <mat-divider></mat-divider>
       </div>
 
       <div *ngIf="isRoleMatch('api_access_admin')">
-        <h3 mat-subheader><mat-icon class="material-icons md-18">dashboard</mat-icon>Admin Panel</h3>
         <a mat-list-item href="#" routerLink="/admin" routerLinkActive="active">Панель администратора</a>
-        <hr>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div matTooltip="В разработке" matTooltipPosition="after">
+        <a mat-list-item href="#" routerLink="/" routerLinkActive="active" class="not-active">Конкурсы</a>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div matTooltip="В разработке" matTooltipPosition="after">
+        <a mat-list-item href="#" routerLink="/" routerLinkActive="active" class="not-active">Личный кабинет</a>
+        <mat-divider></mat-divider>
       </div>
 
     </mat-nav-list>

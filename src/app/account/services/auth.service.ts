@@ -8,6 +8,7 @@ import { BaseService } from '../../../shared/services/base.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
+import { ILoginResponse } from '../models/loginResponse.interface';
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -33,11 +34,11 @@ export class AuthService extends BaseService {
     }
 
     login(userName, password): Observable<boolean> {
-        return this.http.post<{accessToken, refreshToken, expires_in, error}>(this.baseUrl + '/account/login', {userName, password}).pipe(
-            map(res => {
-                localStorage.setItem('accessToken', res.accessToken);
-                localStorage.setItem('refreshToken', res.refreshToken);
-                localStorage.setItem('expires_in', res.expires_in);
+        return this.http.post<ILoginResponse>(this.baseUrl + '/account/login', {userName, password}).pipe(
+            map(loginResponse => {
+                localStorage.setItem('accessToken', loginResponse.accessToken);
+                localStorage.setItem('refreshToken', loginResponse.refreshToken);
+                localStorage.setItem('expires_in', loginResponse.expires_in);
                 this.loggedIn = true;
                 this._authNavStatusSource.next(true);
                 return true;

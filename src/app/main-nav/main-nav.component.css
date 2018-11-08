@@ -11,17 +11,11 @@
   align-items: center;
   justify-content: center;
   width: 250px;
-  background: rgba(255, 0, 0, 0.5);
-  box-shadow: 3px 0 6px rgba(0,0,0,.24);
 }
 
 .not-active {
   pointer-events: none;
   opacity: 0.5;
-}
-
-.fill-remaining-space {
-  flex: 1 1 auto;
 }
 
 .material-icons.md-18 { font-size: 18px; }

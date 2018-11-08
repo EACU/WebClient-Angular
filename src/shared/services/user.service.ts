@@ -7,17 +7,18 @@ import { ConfigService } from '../utils/config.service';
 import { BaseService } from './base.service';
 
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 
 import { default as decode } from 'jwt-decode';
 import { IUserTokens } from '../models/user.tokens.interface';
+import { AuthService } from 'src/app/account/services/auth.service';
 
 @Injectable()
 export class UserService extends BaseService {
 
     baseUrl: string;
 
-    constructor(private http: HttpClient, private configService: ConfigService) {
+    constructor(private http: HttpClient, private configService: ConfigService, private authService: AuthService) {
         super();
         this.baseUrl = this.configService.getApiURI();
     }
@@ -28,6 +29,14 @@ export class UserService extends BaseService {
 
     getUserDetails(): Observable<UserDetails> {
         return this.http.get<UserDetails>(this.baseUrl + '/account/information/').pipe(catchError(this.handleError));
+    }
+
+    getCurrentUser(): UserDetails {
+        const token = this.getAuthenticationToken();
+        if (token) {
+            const decodeToken = decode(token);
+            return { firstName: decodeToken.name.split(' ')[0], lastName: decodeToken.name.split(' ')[1], pictureUrl: decodeToken.pic };
+        }
     }
 
     getRefreshToken(): Observable<IUserTokens> {
