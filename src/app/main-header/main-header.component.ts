@@ -19,7 +19,7 @@ export class MainHeaderComponent implements OnInit {
     private userService: UserService,
     private sidenavService: SidenavService,
     private router: Router) {
-      if (this.userService.getAuthenticationToken()) {
+      if (this.authService.isLogged()) {
           this.userService.getApiUserInformation().subscribe(user => this.userService.setCurrentUser(user));
       }
   }

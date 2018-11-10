@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IUser } from 'src/shared/models/user.information.interface';
+import { UserService } from 'src/shared/services/user.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  currentUser: IUser;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.currentUser$.subscribe(user => this.currentUser = user);
   }
 
 }

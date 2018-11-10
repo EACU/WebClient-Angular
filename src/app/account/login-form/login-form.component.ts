@@ -3,6 +3,7 @@ import { Credentials } from '../models/LoginViewModels/user.credentials.interfac
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
+import { UserService } from 'src/shared/services/user.service';
 
 @Component({
   selector: 'app-login-form',

@@ -11,7 +11,7 @@ export const routing: ModuleWithProviders = RouterModule.forChild([
   {
     path: 'dashboard',
     component: RootComponent, canActivate: [AuthGuard],
-    data: { role: ['api_access_student'] },
+    data: { role: 'api_access_student' },
     children: [
       { path: '', component: HomeComponent },
       { path: 'home',  component: HomeComponent },

@@ -1,8 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Subscription } from 'rxjs';
-
-import { AuthService } from 'src/app/account/services/auth.service';
 import { UserService } from 'src/shared/services/user.service';
 import { SidenavService } from 'src/shared/services/sidenav.service';
 
@@ -17,14 +14,18 @@ export class MainNavComponent implements OnInit {
 
   @ViewChild('sidenav') public sidenav: MatSidenav;
 
-  constructor(private authService: AuthService , private userService: UserService, private sidenavService: SidenavService) {}
+  constructor(private userService: UserService, private sidenavService: SidenavService) { }
 
   ngOnInit(): void {
     this.sidenavService.setSidenav(this.sidenav);
   }
 
-  isRoleMatch(role: string): boolean {
-    return this.userService.isMatchRole(role);
+  isLogged(): boolean {
+    return !!localStorage.getItem('accessToken');
+  }
+
+  isMatchRole(role: string): boolean {
+    return this.userService.isMatchRoleUser(role);
   }
 
 }

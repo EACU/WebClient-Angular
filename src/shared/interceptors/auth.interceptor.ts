@@ -11,13 +11,15 @@ import {
     HttpUserEvent
 } from '@angular/common/http';
 import { Router } from '@angular/router';
+
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { switchMap, catchError, finalize, filter, take } from 'rxjs/operators';
-import { UserService } from '../services/user.service';
+
+import { BaseService } from '../services/base.service';
 import { ConfigService } from '../utils/config.service';
 import { AuthService } from 'src/app/account/services/auth.service';
+
 import { IUserTokens } from '../models/user.tokens.interface';
-import { BaseService } from '../services/base.service';
 
 @Injectable()
 export class AuthInterceptor extends BaseService implements HttpInterceptor {
@@ -26,14 +28,10 @@ export class AuthInterceptor extends BaseService implements HttpInterceptor {
     isRefreshingToken = false;
     tokenSubject = new BehaviorSubject<string>(null);
 
-    constructor(
-        private router: Router,
-        private configService: ConfigService,
-        private userService: UserService,
-        private authService: AuthService) {
-            super();
-            this.baseUrl = this.configService.getApiURI();
-        }
+    constructor(private router: Router, private configService: ConfigService, private authService: AuthService) {
+        super();
+        this.baseUrl = this.configService.getApiURI();
+    }
 
 
     addTokenInHeaders(req: HttpRequest<any>, token: string): HttpRequest<any> {
@@ -42,7 +40,7 @@ export class AuthInterceptor extends BaseService implements HttpInterceptor {
 
     // tslint:disable-next-line:max-line-length
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any> | any> {
-        return next.handle(this.addTokenInHeaders(req, this.userService.getAuthenticationToken())).pipe(
+        return next.handle(this.addTokenInHeaders(req, localStorage.getItem('accessToken'))).pipe(
             catchError(err => {
                 if (err instanceof HttpErrorResponse) {
                     switch ((<HttpErrorResponse>err).status) {
@@ -98,7 +96,6 @@ export class AuthInterceptor extends BaseService implements HttpInterceptor {
     }
 
     handle403Error() {
-        this.authService.logout();
         return this.router.navigate(['/forbidden']);
     }
 

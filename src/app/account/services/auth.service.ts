@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { StudentRegistrationViewModel } from '../models/RegistationViewModels/student.registration';
+
 import { ConfigService } from '../../../shared/utils/config.service';
-
 import { BaseService } from '../../../shared/services/base.service';
-import { BehaviorSubject, Observable } from 'rxjs';
 
+import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+
 import { ILoginResponse } from '../models/loginResponse.interface';
 import { IUserTokens } from 'src/shared/models/user.tokens.interface';
-import { IUser } from 'src/shared/models/user.information.interface';
 import { UserService } from 'src/shared/services/user.service';
 
 @Injectable()
@@ -42,13 +42,16 @@ export class AuthService extends BaseService {
     }
 
     getRefreshToken(): Observable<IUserTokens> {
-        const refreshToken = localStorage.getItem('refreshToken');
-        const body = JSON.stringify({ token: refreshToken });
-        const httpOptions = {headers: new HttpHeaders({ 'Content-Type':  'application/json' })};
+        const body = JSON.stringify({ token: localStorage.getItem('refreshToken') });
+        const httpOptions = { headers: new HttpHeaders({ 'Content-Type':  'application/json' })};
         return this.http.post<IUserTokens>(this.baseUrl + '/token/refresh', body, httpOptions).pipe(catchError(this.handleError));
     }
 
-    logout() {
+    isLogged(): boolean {
+        return !!localStorage.getItem('accessToken');
+    }
+
+    logout(): void {
         localStorage.clear();
         this.userService.setCurrentUser(null);
     }

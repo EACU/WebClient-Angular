@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
     const token = localStorage.getItem('accessToken');
     if (token) {
       const role = next.data['role'] as string;
-      if (this.userService.isMatchRole(role)) {
+      if (this.userService.isMatchRoleUser(role)) {
         return true;
       } else {
         this.router.navigate(['/forbidden']);
