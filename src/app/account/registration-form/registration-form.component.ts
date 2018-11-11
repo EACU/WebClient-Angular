@@ -37,7 +37,7 @@ export class RegistrationFormComponent implements OnInit {
     });
   }
 
-  done() {
+  done(): void {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
       const student: StudentRegistrationViewModel = {
         email: this.firstFormGroup.value.Email,
@@ -53,7 +53,7 @@ export class RegistrationFormComponent implements OnInit {
     }
   }
 
-  registerUser(student) {
+  registerUser(student: StudentRegistrationViewModel) {
     this.submitted = true;
     this.isRequesting = true;
     this.authService.registerStudent(student)

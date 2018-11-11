@@ -81,7 +81,7 @@ export class AuthInterceptor extends BaseService implements HttpInterceptor {
                     return <any>this.authService.logout();
                 }),
                 catchError(() => {
-                    this.router.navigate(['/authentication/login']);
+                    this.router.navigate(['/account/login']);
                     return <any>this.authService.logout();
                 }),
                 finalize(() => {

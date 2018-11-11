@@ -8,6 +8,7 @@ import { BaseService } from './base.service';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { IUpdateUserViewModel } from 'src/app/account/viewModels/updateUserViewModel.interface';
 
 @Injectable()
 export class UserService extends BaseService {
@@ -28,6 +29,10 @@ export class UserService extends BaseService {
 
     getApiUserInformation(): Observable<IUser> {
         return this.http.get<IUser>(this.baseUrl + '/account/information/').pipe(catchError(this.handleError));
+    }
+
+    updateApiUserInformation(updateUser: IUpdateUserViewModel): Observable<IUser> {
+        return this.http.put<IUser>(this.baseUrl + '/account/information', updateUser).pipe(catchError(this.handleError));
     }
 
     isMatchRoleUser(role: string): boolean {
