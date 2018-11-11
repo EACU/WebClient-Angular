@@ -4,3 +4,8 @@
 body {
     margin: 0;
 }
+
+
+.success-snackbar{ background: #2fc243 }
+.error-snackbar { background: #F44336 }
+.info-snackbar { background: #2196F3 }
