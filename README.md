@@ -1,6 +1,6 @@
-# EACA-Application-Angular
+# Клиент на фреймворке Angular
 
-Приложение для ЕАСИ написанное на [Angular 6](https://angular.io/), которое собирает в себя множество других маленьких проектов.
+Приложение написанное на [Angular](https://angular.io/), которое общается с [Web-API](https://github.com/EACU/WebApi)
 
 ## Расписание
 
