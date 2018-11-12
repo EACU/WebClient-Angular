@@ -1,40 +1,41 @@
-import { Component } from '@angular/core';
-import { Credentials } from '../models/LoginViewModels/user.credentials.interface';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
-import { UserService } from 'src/shared/services/user.service';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
 
-  credentials: Credentials = { email: '', password: '' };
-  isRequesting = false;
-  submitted = false;
+  loginForm: FormGroup;
+
+  isRequesting: boolean;
   errors: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(public dialogRef: MatDialogRef<LoginFormComponent>, private formBuilder: FormBuilder, private authService: AuthService) { }
 
-  login({ value, valid }: { value: Credentials, valid: boolean }) {
-    this.submitted = true;
-    this.isRequesting = true;
-    this.errors = '';
-    if (valid) {
-      this.authService.login(value.email, value.password)
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
+
+  login() {
+    if (this.loginForm.valid) {
+      this.isRequesting = true;
+      this.errors = '';
+      this.authService.login({username: this.loginForm.value.email, password: this.loginForm.value.password})
         .pipe(finalize(() => this.isRequesting = false))
         .subscribe(
-          result => {
-            if (result) {
-              this.router.navigate(['/']);
-            }
-          },
+          () => this.dialogRef.close(this.loginForm.value.email),
           error => this.errors = error
         );
     }
   }
-
 }
+

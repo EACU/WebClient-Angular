@@ -12,7 +12,9 @@ import {
   MatStepperModule,
   MatIconModule,
   MatListModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatDialogModule,
+  MatDividerModule
 } from '@angular/material';
 
 import { RootComponent } from './root/root.component';
@@ -31,7 +33,6 @@ import { SettingsComponent } from './settings/settings.component';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     routing,
     MatToolbarModule,
     MatCardModule,
@@ -42,6 +43,7 @@ import { SettingsComponent } from './settings/settings.component';
     MatStepperModule,
     MatIconModule,
     MatCheckboxModule,
+    MatDialogModule,
     ReactiveFormsModule
   ],
   declarations: [

@@ -9,7 +9,7 @@ import {
   MatListModule,
   MatTooltipModule,
   MatIconModule,
-  MatCardModule, MatButtonModule, MatDividerModule, MatMenuModule
+  MatCardModule, MatButtonModule, MatDividerModule, MatMenuModule, MatDialogModule
 } from '@angular/material';
 
 import { LayoutModule } from '@angular/cdk/layout';
@@ -62,7 +62,8 @@ import { SidenavService } from 'src/shared/services/sidenav.service';
     LayoutModule,
     MatButtonModule,
     MatDividerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
   providers: [
     ScheduleService,

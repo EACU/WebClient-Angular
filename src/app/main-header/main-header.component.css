@@ -1,7 +1,13 @@
-.main-header {
-    position: fixed;
+
+.mat-toolbar {
+    position: relative;
+    z-index: 5; 
 }
 
 .fill-remaining-space {
     flex: 1 1 auto;
+}
+
+.header-icon {
+    padding: 0 14px;
 }

@@ -1,20 +1,30 @@
-<mat-toolbar color="primary" class="main-header">
+<mat-toolbar color="primary" class="main-header mat-elevation-z5">
 
-    <button mat-button (click)="toggleSidenav()"><mat-icon>menu</mat-icon></button>
+    <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <span>ЕАСИ</span>
 
     <span class="fill-remaining-space"></span>
 
     <div *ngIf="currentUser">        
         <button mat-raised-button color="accent" [matMenuTriggerFor]="userMenu">{{currentUser?.firstName}} {{currentUser?.lastName}}</button>
         <mat-menu #userMenu="matMenu">
-            <button mat-menu-item routerLink="/account/settings">Настройки</button>
+            <button mat-menu-item routerLink="/account/settings">
+                <mat-icon>settings</mat-icon>
+                <span>Настройки</span>
+            </button>
             <mat-divider></mat-divider>
-            <button mat-menu-item (click)="logout()">Выйти</button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Выйти</span>
+            </button>
         </mat-menu>
     </div>
 
     <div *ngIf="!currentUser">
-        <button mat-button routerLink="/account/login" routerLinkActive="active">Вход</button>
+        <button mat-button (click)='openLoginDialog()'>Вход</button>
         <button mat-raised-button color="accent" routerLink="/account/register" routerLinkActive="active">Регистрация</button>
     </div>
 

@@ -12,6 +12,7 @@ import { map, catchError } from 'rxjs/operators';
 import { ILoginResponse } from '../models/loginResponse.interface';
 import { IUserTokens } from 'src/shared/models/user.tokens.interface';
 import { UserService } from 'src/shared/services/user.service';
+import { LoginViewModel } from '../models/LoginViewModels/user.credentials.interface';
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -29,14 +30,13 @@ export class AuthService extends BaseService {
         return this.http.post<string>(this.baseUrl + '/account/register/student', body, httpOptions);
     }
 
-    login(userName, password): Observable<boolean> {
-        return this.http.post<ILoginResponse>(this.baseUrl + '/account/login', {userName, password}).pipe(
+    login(credentials: LoginViewModel) {
+        return this.http.post<ILoginResponse>(this.baseUrl + '/account/login', credentials).pipe(
             map(loginResponse => {
                 localStorage.setItem('accessToken', loginResponse.accessToken);
                 localStorage.setItem('refreshToken', loginResponse.refreshToken);
                 localStorage.setItem('expires_in', loginResponse.expires_in);
                 this.userService.getApiUserInformation().subscribe(user => this.userService.setCurrentUser(user));
-                return true;
             })
         );
     }
