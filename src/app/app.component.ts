@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/shared/services/user.service';
 
 @Component({
@@ -7,12 +7,13 @@ import { UserService } from 'src/shared/services/user.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
     if (!!localStorage.getItem('accessToken')) {
       this.userService.getApiUserInformation().subscribe(user => this.userService.setCurrentUser(user));
     }
   }
-
 }
