@@ -25,8 +25,6 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { ConfigService } from '../../shared/utils/config.service';
 import { AuthService } from './services/auth.service';
 
-import { EmailValidatorDirective } from '../directive/email.validator.directive';
-
 import { routing } from './account.routing';
 import { SettingsComponent } from './settings/settings.component';
 
@@ -48,7 +46,6 @@ import { SettingsComponent } from './settings/settings.component';
   ],
   declarations: [
     RegistrationFormComponent,
-    EmailValidatorDirective,
     LoginFormComponent,
     ToolbarComponent,
     RootComponent,
