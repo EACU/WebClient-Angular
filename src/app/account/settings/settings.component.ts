@@ -4,7 +4,7 @@ import { UserService } from 'src/shared/services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/shared/services/snackbar.service';
 import { finalize } from 'rxjs/operators';
-import { IUpdateUserViewModel } from '../viewModels/updateUserViewModel.interface';
+import { IUpdateUserViewModel } from '../viewModels/UpdateUserViewModel.interface';
 
 @Component({
   selector: 'app-settings',

@@ -8,7 +8,7 @@ import { BaseService } from './base.service';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { IUpdateUserViewModel } from 'src/app/account/viewModels/updateUserViewModel.interface';
+import { IUpdateUserViewModel } from 'src/app/account/viewModels/UpdateUserViewModel.interface';
 
 @Injectable()
 export class UserService extends BaseService {
