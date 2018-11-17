@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/shared/models/user.information.interface';
 import { UserService } from 'src/shared/services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IUpdateUserViewModel } from '../viewModels/updateUserViewModel.interface';
 import { SnackBarService } from 'src/shared/services/snackbar.service';
 import { finalize } from 'rxjs/operators';
+import { IUpdateUserViewModel } from '../viewModels/updateUserViewModel.interface';
 
 @Component({
   selector: 'app-settings',
