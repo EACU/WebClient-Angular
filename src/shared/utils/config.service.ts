@@ -6,7 +6,7 @@ export class ConfigService {
     _apiURI: string;
 
     constructor() {
-        this._apiURI = 'http://localhost:52569/api';
+        this._apiURI = 'https://eaca.azurewebsites.net/api';
     }
 
     getApiURI() {
