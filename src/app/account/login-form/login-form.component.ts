@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { AuthService } from '../services/auth.service';
 import { finalize } from 'rxjs/internal/operators/finalize';
+import { SnackBarService } from 'src/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-login-form',
@@ -16,7 +17,11 @@ export class LoginFormComponent implements OnInit {
   isRequesting: boolean;
   errors: string;
 
-  constructor(public dialogRef: MatDialogRef<LoginFormComponent>, private formBuilder: FormBuilder, private authService: AuthService) { }
+  constructor(
+    public dialogRef: MatDialogRef<LoginFormComponent>,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private snackBarService: SnackBarService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -32,7 +37,10 @@ export class LoginFormComponent implements OnInit {
       this.authService.login({username: this.loginForm.value.email, password: this.loginForm.value.password})
         .pipe(finalize(() => this.isRequesting = false))
         .subscribe(
-          () => this.dialogRef.close(this.loginForm.value.email),
+          () => {
+            this.snackBarService.showSuccess(`Здравствуйте: ${this.loginForm.value.email}`);
+            this.dialogRef.close();
+          },
           error => this.errors = error
         );
     }

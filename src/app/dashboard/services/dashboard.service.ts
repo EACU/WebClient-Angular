@@ -21,6 +21,6 @@ export class DashboardService extends BaseService {
   }
 
   getHomeDetails() {
-    return this.http.get<StudentDetails>(this.baseUrl + '/student/dashboard').pipe(catchError(this.handleError));
+    return this.http.get<any>(this.baseUrl + '/student/dashboard').pipe(catchError(this.handleError));
   }
 }

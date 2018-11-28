@@ -5,6 +5,7 @@ import { StudentRegistrationViewModel } from '../models/RegistationViewModels/st
 
 import { finalize } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SnackBarService } from 'src/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -20,7 +21,11 @@ export class RegistrationFormComponent implements OnInit {
   isRequesting: boolean;
   submitted = false;
 
-  constructor(private authService: AuthService, private router: Router, private _formBuilder: FormBuilder) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private _formBuilder: FormBuilder,
+    private snackBarService: SnackBarService) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -33,7 +38,7 @@ export class RegistrationFormComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       Group: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
       Gradebook: ['', Validators.required],
-      Headman: ['', Validators.required]
+      Headman: [false, Validators.required]
     });
   }
 
@@ -60,7 +65,8 @@ export class RegistrationFormComponent implements OnInit {
       .pipe(finalize(() => this.isRequesting = false))
       .subscribe(result => {
           if (result) {
-            this.router.navigate(['/authentication/login']);
+            this.snackBarService.showSuccess(`Вы успешно зарегистрировались`);
+            this.router.navigate(['/']);
           }},
         errors => this.errors = errors
       );

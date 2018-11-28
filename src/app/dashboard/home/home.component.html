@@ -1,4 +1,2 @@
-<p><strong>Name:</strong> {{studentDetails?.firstName}} {{studentDetails?.lastName}}</p>
-<p><strong>Group:</strong> {{studentDetails?.group}}</p>
-<p><strong>Headman?:</strong> {{studentDetails?.headman}}</p>
+<pre>{{studentDetails | json}}</pre>
 <div *ngIf="studentDetails?.pictureUrl"><img src="{{studentDetails?.pictureUrl}}" /></div>  

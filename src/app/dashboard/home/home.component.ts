@@ -9,12 +9,12 @@ import { DashboardService } from '../services/dashboard.service';
 })
 export class HomeComponent implements OnInit {
 
-  studentDetails: StudentDetails;
+  studentDetails: any;
 
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
-    this.dashboardService.getHomeDetails().subscribe((studentDetails: StudentDetails) => this.studentDetails = studentDetails);
+    this.dashboardService.getHomeDetails().subscribe((studentDetails: any) => this.studentDetails = studentDetails);
   }
 
 }

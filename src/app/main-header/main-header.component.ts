@@ -32,13 +32,7 @@ export class MainHeaderComponent implements OnInit {
   }
 
   openLoginDialog(): void {
-    const dialogRef = this.dialog.open(LoginFormComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.snackbarService.showInfo(`Здравствуйте ${result}`);
-      }
-    });
+    this.dialog.open(LoginFormComponent);
   }
 
   toggleSidenav() {
