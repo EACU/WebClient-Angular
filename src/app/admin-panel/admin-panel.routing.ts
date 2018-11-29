@@ -5,6 +5,7 @@ import { RootComponent } from './root/root.component';
 import { HomeComponent } from './home/home.component';
 
 import { AuthGuard } from '../auth.guard';
+import { UserOperationsComponent } from './user-operations/user-operations.component';
 
 export const routing: ModuleWithProviders = RouterModule.forChild([
   {
@@ -14,6 +15,7 @@ export const routing: ModuleWithProviders = RouterModule.forChild([
     children: [
       { path: '', component: HomeComponent },
       { path: 'home',  component: HomeComponent },
+      { path: 'users',  component: UserOperationsComponent },
     ]
   }
 ]);

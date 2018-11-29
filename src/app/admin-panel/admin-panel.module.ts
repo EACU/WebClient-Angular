@@ -10,7 +10,8 @@ import {
   MatToolbarModule,
   MatSidenavModule,
   MatListModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatTabsModule
 } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '../auth.guard';
@@ -19,6 +20,7 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AdminService } from './services/admin.service';
+import { UserOperationsComponent } from './user-operations/user-operations.component';
 
 @NgModule({
   imports: [
@@ -34,9 +36,10 @@ import { AdminService } from './services/admin.service';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule
   ],
-  declarations: [RootComponent, HomeComponent, ToolbarComponent],
+  declarations: [RootComponent, HomeComponent, ToolbarComponent, UserOperationsComponent],
   exports: [ ],
   providers: [AuthGuard, AdminService]
 })

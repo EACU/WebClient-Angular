@@ -11,6 +11,22 @@
           <mat-divider></mat-divider>
         </a>
 
+        <ng-container *ngIf="isMatchRole('api_access_admin') && isLogged()">
+          <h3 mat-subheader>Панель администратора</h3>
+
+          <a mat-list-item routerLink="/admin/" routerLinkActive="active">
+            <mat-icon matListIcon>dashboard</mat-icon>
+            <span matLine>Главная</span>
+          </a>
+
+          <a mat-list-item routerLink="/admin/users" routerLinkActive="active">
+            <mat-icon matListIcon>dashboard</mat-icon>
+            <span matLine>Операции с аккаунтами</span>
+          </a>
+          
+          <mat-divider></mat-divider>
+        </ng-container>
+
         <ng-container *ngIf="isLogged()">
 
           <h3 mat-subheader>Аккаунт</h3>
@@ -27,15 +43,8 @@
             </a>
           </ng-container>
 
-          <ng-container *ngIf="isMatchRole('api_access_admin')">
-            <a mat-list-item routerLink="/admin" routerLinkActive="active">
-              <mat-icon matListIcon>dashboard</mat-icon>
-              <span matLine>Панель администратора</span>
-              <mat-divider></mat-divider>
-            </a>
-          </ng-container>
-
         </ng-container>
+        <mat-divider></mat-divider>
 
         <h3 mat-subheader>Расписание</h3>
         <a mat-list-item routerLink="/schedule" routerLinkActive="active">
